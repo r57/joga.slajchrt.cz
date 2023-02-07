@@ -23,7 +23,6 @@ export class YogaSessionEffects {
     return this.actions$.pipe( 
       ofType(EventActions.loadYogaSessions),
       switchMap(() => this.firestore.collection<FirestoreYogaSession>('yogaSessions').valueChanges()),
-      tap(firestoreSessions => console.log(firestoreSessions)),
       map(firestoreSessions => {
         const sessions = firestoreSessions.map<YogaSession>(firestoreSession => ({
           date: DateTime.fromJSDate(firestoreSession.date.toDate()).startOf('day'),
