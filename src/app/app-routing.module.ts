@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
+import { HomeComponent } from './home/home.component';
 import { YogaSessionComponent } from './yoga-session/yoga-session.component';
 
 const routes: Routes = [
-  { path: 'yoga-session', component: YogaSessionComponent }
+  { path: '', component: HomeComponent },
+  { path: 'terminy', component: YogaSessionComponent },
 ];
 
 @NgModule({
