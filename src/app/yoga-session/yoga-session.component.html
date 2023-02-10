@@ -1,1 +1,46 @@
-<p>yogaSession works!</p>
+<h1>Termíny</h1>
+
+<nz-list class="yoga-sessions" [nzLoading]="$yogaSessionsLoading | async" [nzBordered]="true">
+  <nz-list-item *ngFor="let yogaSession of $yogaSessions | async">
+    <nz-list-item-meta>
+      <nz-list-item-meta-title>
+        {{ formatDate(yogaSession.date) }}
+      </nz-list-item-meta-title>
+      <!-- <nz-list-item-meta-description>
+        TODO optional description
+      </nz-list-item-meta-description> -->
+    </nz-list-item-meta>
+    
+    <ul nz-list-item-actions>
+
+      <nz-list-item-action *ngIf="isSessionAfterLockout(yogaSession); else capacityCheck">
+        rezervace uzavřeny
+        <span 
+          nz-icon nzType="info-circle" nzTheme="outline" 
+          nz-tooltip [nzTooltipTitle]="'Rezervace byly uzavřeny ' + yogaSession.lockHoursBefore + ' hodin před termínem. Zvolte jiný termín.'"
+        ></span>
+      </nz-list-item-action>
+
+      <ng-template #capacityCheck>
+        <nz-list-item-action *ngIf="isSessionAtCapacity(yogaSession); else available">
+          naplněna kapacita
+          <span 
+            nz-icon nzType="info-circle" nzTheme="outline" 
+            nz-tooltip [nzTooltipTitle]="'Kapacita termínu byla naplněna. Zvolte jiný termín.'"
+          ></span>
+        </nz-list-item-action>
+      </ng-template>
+
+      <ng-template #available>
+        <nz-list-item-action>
+          <button nz-button nzType="primary" style="display: block; margin: 5px 0;">
+            <span nz-icon nzType="plus"></span>
+            Online rezervace
+          </button>
+          {{ yogaSession.capacity - yogaSession.attendees }} z {{ yogaSession.capacity }} volných
+        </nz-list-item-action>
+      </ng-template>
+    </ul>
+
+  </nz-list-item>
+</nz-list>

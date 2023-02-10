@@ -5,13 +5,11 @@ import * as yogaSessionActions from './yoga-session.actions';
 
 export const eventFeatureKey = 'event';
 
-export interface YogaSessionAttendee {
-  name: String;
-}
-
 export interface YogaSession {
+  attendees: number;
+  capacity: number,
   date: DateTime;
-  attendees: YogaSessionAttendee[];
+  lockHoursBefore: number;
 }
 
 export interface State {
