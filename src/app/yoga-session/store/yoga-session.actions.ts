@@ -10,6 +10,11 @@ export const loadYogaSessionsSuccess = createAction(
   props<{ sessions: YogaSession[] }>()
 );
 
+export const loadYogaSessionsFailure = createAction(
+  '[YogaSession] Load yoga sessions failure',
+  props<{ message: string }>()
+);
+
 export const attendYogaSession = createAction(
   '[YogaSession] Attend yoga session',
   props<{ name: string; phone: string; sessionId: string }>()

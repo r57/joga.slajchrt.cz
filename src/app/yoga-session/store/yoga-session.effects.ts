@@ -3,7 +3,7 @@ import { AngularFirestore } from "@angular/fire/compat/firestore";
 import { Timestamp } from "@angular/fire/firestore";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { DateTime } from "luxon";
-import { EMPTY } from "rxjs";
+import { of } from "rxjs";
 
 import { switchMap, map, catchError, concatMap } from "rxjs/operators";
 import * as YogaSessionActions from "./yoga-session.actions";
@@ -52,7 +52,11 @@ export class YogaSessionEffects {
       }),
       catchError((err) => {
         console.error(err);
-        return EMPTY;
+        return of(
+          YogaSessionActions.loadYogaSessionsFailure({
+            message: "Nepodařilo se načíst termíny",
+          })
+        );
       })
     );
   });
@@ -96,6 +100,14 @@ export class YogaSessionEffects {
               });
             }
           }
+        );
+      }),
+      catchError((err) => {
+        console.error(err);
+        return of(
+          YogaSessionActions.attendYogaSessionFailure({
+            message: "Rezervace se nezdařila",
+          })
         );
       })
     );
