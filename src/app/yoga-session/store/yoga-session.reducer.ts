@@ -1,16 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
-import { DateTime } from "luxon";
 
+import { YogaSession } from '../yoga-session.model';
 import * as yogaSessionActions from './yoga-session.actions';
 
 export const eventFeatureKey = 'event';
-
-export interface YogaSession {
-  attendees: number;
-  capacity: number,
-  date: DateTime;
-  lockHoursBefore: number;
-}
 
 export interface State {
   loading: boolean;
@@ -30,3 +23,5 @@ export const reducer = createReducer(
   on(yogaSessionActions.loadYogaSessionsSuccess, (state, action) => ({ ...state, loading: false, sessions: action.sessions }))
 
 );
+
+export { YogaSession };

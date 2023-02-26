@@ -1,33 +1,60 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
+import { ReactiveFormsModule } from "@angular/forms";
 
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
 
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzListModule } from 'ng-zorro-antd/list';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
-import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzAlertModule } from "ng-zorro-antd/alert";
+import { NzButtonModule } from "ng-zorro-antd/button";
+import { NzDescriptionsModule } from "ng-zorro-antd/descriptions";
+import { NzFormModule } from "ng-zorro-antd/form";
+import { NzIconModule } from "ng-zorro-antd/icon";
+import { NzListModule } from "ng-zorro-antd/list";
+import { NzProgressModule } from "ng-zorro-antd/progress";
+import { NzSpinModule } from "ng-zorro-antd/spin";
+import { NzToolTipModule } from "ng-zorro-antd/tooltip";
 
-import { YogaSessionRoutingModule } from './yoga-session-routing.module';
-import { YogaSessionComponent } from './yoga-session.component';
+import { YogaSessionComponent } from "./yoga-session.component";
+import { ReservationComponent } from "./components/reservation/reservation.component";
 
-import * as YogaSessionReducer from './store/yoga-session.reducer';
-import { YogaSessionEffects } from './store/yoga-session.effects';
+import * as YogaSessionReducer from "./store/yoga-session.reducer";
+import { YogaSessionEffects } from "./store/yoga-session.effects";
+import { SharedModule } from "../shared/shared.module";
+import {
+  IsSessionHistoryPipe,
+  IsSessionLockoutPipe,
+  SessionAtCapacityPipe,
+} from "./yoga-session.pipe";
 
 @NgModule({
   declarations: [
-    YogaSessionComponent
+    YogaSessionComponent,
+    ReservationComponent,
+    SessionAtCapacityPipe,
+    IsSessionLockoutPipe,
+    IsSessionHistoryPipe,
   ],
   imports: [
     CommonModule,
-    YogaSessionRoutingModule,
-    StoreModule.forFeature(YogaSessionReducer.eventFeatureKey, YogaSessionReducer.reducer),
+    RouterModule,
+    StoreModule.forFeature(
+      YogaSessionReducer.eventFeatureKey,
+      YogaSessionReducer.reducer
+    ),
     EffectsModule.forFeature([YogaSessionEffects]),
+    NzAlertModule,
     NzButtonModule,
-    NzListModule,
+    NzDescriptionsModule,
+    NzFormModule,
     NzIconModule,
+    NzListModule,
+    NzProgressModule,
+    NzSpinModule,
     NzToolTipModule,
-  ]
+    ReactiveFormsModule,
+    SharedModule,
+  ],
 })
-export class YogaSessionModule { }
+export class YogaSessionModule {}

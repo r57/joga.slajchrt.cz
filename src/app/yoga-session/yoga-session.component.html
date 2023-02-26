@@ -4,42 +4,42 @@
   <nz-list-item *ngFor="let yogaSession of $yogaSessions | async">
     <nz-list-item-meta>
       <nz-list-item-meta-title>
-        {{ formatDate(yogaSession.date) }}
+        {{ yogaSession.date | luxonDateMedium }}
       </nz-list-item-meta-title>
       <!-- <nz-list-item-meta-description>
         TODO optional description
       </nz-list-item-meta-description> -->
     </nz-list-item-meta>
-    
+
     <ul nz-list-item-actions>
 
-      <nz-list-item-action *ngIf="isSessionAfterLockout(yogaSession); else capacityCheck">
-        rezervace uzavřeny
-        <span 
-          nz-icon nzType="info-circle" nzTheme="outline" 
-          nz-tooltip [nzTooltipTitle]="'Rezervace byly uzavřeny ' + yogaSession.lockHoursBefore + ' hodin před termínem. Zvolte jiný termín.'"
-        ></span>
-      </nz-list-item-action>
+      <nz-list-item-action appMatch>
 
-      <ng-template #capacityCheck>
-        <nz-list-item-action *ngIf="isSessionAtCapacity(yogaSession); else available">
-          naplněna kapacita
-          <span 
-            nz-icon nzType="info-circle" nzTheme="outline" 
-            nz-tooltip [nzTooltipTitle]="'Kapacita termínu byla naplněna. Zvolte jiný termín.'"
-          ></span>
-        </nz-list-item-action>
-      </ng-template>
+        <span *appMatchCase="yogaSession | isSessionHistory" nz-tooltip
+          [nzTooltipTitle]="'Termín již proběhl. Zvolte jiný termín.'">
+          Termín již proběhl
+          <span nz-icon nzType="info-circle" nzTheme="outline"></span>
+        </span>
 
-      <ng-template #available>
-        <nz-list-item-action>
-          <button nz-button nzType="primary" style="display: block; margin: 5px 0;">
+        <span *appMatchCase="yogaSession | isSessionLockout" nz-icon nzType="info-circle" nzTheme="outline" nz-tooltip
+          [nzTooltipTitle]="'Rezervace byly uzavřeny ' + yogaSession.lockHoursBefore + ' hodin před termínem. Zvolte jiný termín.'">
+          Rezervace uzavřeny
+        </span>
+
+        <span *appMatchCase="yogaSession | isSessionAtCapacity" nz-tooltip
+          [nzTooltipTitle]="'Kapacita termínu byla naplněna. Zvolte jiný termín.'">
+          Termín je plný
+          <span nz-icon nzType="info-circle" nzTheme="outline"></span>
+        </span>
+
+        <ng-container *appMatchCase="true">
+          {{ yogaSession.capacity - yogaSession.attendees }} míst volných
+          <button nz-button nzType="primary" style="margin-left: 1em;" [routerLink]="[yogaSession.id, 'rezervace']">
             <span nz-icon nzType="plus"></span>
             Online rezervace
           </button>
-          {{ yogaSession.capacity - yogaSession.attendees }} z {{ yogaSession.capacity }} volných
-        </nz-list-item-action>
-      </ng-template>
+        </ng-container>
+      </nz-list-item-action>
     </ul>
 
   </nz-list-item>

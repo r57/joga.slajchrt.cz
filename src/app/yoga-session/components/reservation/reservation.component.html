@@ -1,0 +1,71 @@
+<h1>Rezervace termínu</h1>
+
+<ng-container *ngIf="{ 
+  yogaSession: yogaSession$ | async,
+  loading: yogaSessionLoading$ | async
+} as data">
+
+  <nz-spin *ngIf="data.loading" class="loader" nzSimple [nzSize]="'large'"></nz-spin>
+
+  <ng-container *ngIf="data.yogaSession as yogaSession" [ngSwitch]="true">
+    <nz-alert  
+      *ngSwitchCase="yogaSession | isSessionHistory"
+      nzType="error"
+      nzMessage="Termín nelze rezervovat"
+      nzDescription="Tanto termín již proběhl"
+      nzShowIcon
+    ></nz-alert>
+
+    <nz-alert  
+      *ngSwitchCase="yogaSession | isSessionAtCapacity"
+      nzType="error"
+      nzMessage="Termín nelze rezervovat"
+      nzDescription="Tanto termín je již zaplněn"
+      nzShowIcon
+    ></nz-alert>
+    
+    <nz-alert  
+      *ngSwitchCase="yogaSession | isSessionLockout "
+      nzType="error"
+      nzMessage="Termín nelze rezervovat"
+      nzDescription="Tanto termín je již uzamčen pro nové rezervace"
+      nzShowIcon
+    ></nz-alert>
+
+    <ng-container *ngSwitchDefault>
+      <form nz-form [formGroup]="reservationForm" (ngSubmit)="onReservationFormSubmit()">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">Termín</nz-form-label>
+          <nz-form-control [nzSpan]="14">
+            {{ yogaSession.date | luxonDateMedium }}
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">Obsazenost</nz-form-label>
+          <nz-form-control [nzSpan]="14">
+            {{ yogaSession.attendees }} obsazeno /
+            {{ yogaSession.capacity - yogaSession.attendees }} volných
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6" nzFor="name" nzRequired>Jméno a příjmení</nz-form-label>
+          <nz-form-control [nzSpan]="14">
+            <input formControlName="name" nz-input name="name" id="name">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6" nzFor="phone" nzRequired>Telefon</nz-form-label>
+          <nz-form-control [nzSpan]="14">
+            <input formControlName="phone" nz-input name="phone" type="tel" id="phone">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nz-row>
+          <nz-form-control [nzSpan]="14" [nzOffset]="6">
+            <button nz-button nzType="primary" [disabled]="!reservationForm.valid">Rezervovat</button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </ng-container>
+  </ng-container>
+
+</ng-container>
