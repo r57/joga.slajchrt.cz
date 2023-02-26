@@ -1,0 +1,15 @@
+<ng-container *ngIf="{ 
+  yogaSession: yogaSession$ | async
+} as data">
+
+  <nz-result *ngIf="data.yogaSession as yogaSession"
+    nzStatus="success"
+    [nzTitle]="'Termín rezervován'"
+    [nzSubTitle]="'Budeme se těšit v ' + (yogaSession.date | luxonDateMedium) + ''"
+  >
+    <div nz-result-extra>
+      <a nz-button [routerLink]="'/terminy'">Zpět na přehled termínů</a>
+    </div>
+  </nz-result>
+
+</ng-container>

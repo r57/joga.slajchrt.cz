@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { combineLatest, Observable } from 'rxjs';
@@ -20,8 +20,8 @@ export class ReservationComponent {
   yogaSessionLoading$: Observable<boolean>;
 
   reservationForm = this.fb.group({
-    name: ['', Validators.required],
-    phone: ['', Validators.required],
+    name: ['', [Validators.required, this.nameValidator]],
+    phone: ['', [Validators.required, this.phoneValidator]],
   });
 
   constructor(private store: Store, private route: ActivatedRoute, private fb: FormBuilder) {
@@ -42,6 +42,16 @@ export class ReservationComponent {
     if (this.reservationForm.valid && name && phone && sessionId) {
       this.store.dispatch(YogaSessionActions.attendYogaSession({name, phone, sessionId}));
     }
+  }
+
+  nameValidator(control: AbstractControl<string>): ValidationErrors | null {
+    const hasName = /^\S{2,}\s+\S{2,}/.test(control.value.trim())
+    return hasName ? null : { name: {} }
+  }
+
+  phoneValidator(control: AbstractControl<string>): ValidationErrors | null {
+    const isPhone = /^\+?([0-9] ?)+/.test(control.value.trim());
+    return isPhone ? null : { phone: {} }
   }
 
 }

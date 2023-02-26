@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore } from "@angular/fire/compat/firestore";
 import { Timestamp } from "@angular/fire/firestore";
+import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { DateTime } from "luxon";
 import { of } from "rxjs";
 
-import { switchMap, map, catchError, concatMap } from "rxjs/operators";
+import { switchMap, map, catchError, concatMap, tap } from "rxjs/operators";
 import * as YogaSessionActions from "./yoga-session.actions";
 import { YogaSession } from "./yoga-session.reducer";
 
@@ -46,7 +47,7 @@ export class YogaSessionEffects {
             ),
             lockHoursBefore: firestoreSession.lockHoursBefore,
           })
-        );
+        ).sort((a, b) => a.date.toUnixInteger() - b.date.toUnixInteger());
 
         return YogaSessionActions.loadYogaSessionsSuccess({ sessions });
       }),
@@ -92,7 +93,7 @@ export class YogaSessionEffects {
                   phone: action.phone,
                 };
                 transaction.set(attendeeRef, attendeeData);
-                return YogaSessionActions.attendYogaSessionSuccess();
+                return YogaSessionActions.attendYogaSessionSuccess({ sessionId: action.sessionId });
               }
             } else {
               return YogaSessionActions.attendYogaSessionFailure({
@@ -113,8 +114,17 @@ export class YogaSessionEffects {
     );
   });
 
+  attendYogaSessionSuccessRedirect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(YogaSessionActions.attendYogaSessionSuccess),
+      tap((action) => this.router.navigate(['terminy', action.sessionId, 'rezervace', 'rezervovano'])),
+    )
+  }, { dispatch: false });
+
   constructor(
     private actions$: Actions,
-    private angularFirestore: AngularFirestore
+    private angularFirestore: AngularFirestore,
+    private router: Router,
   ) {}
 }
+

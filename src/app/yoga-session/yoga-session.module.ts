@@ -12,6 +12,7 @@ import { NzDescriptionsModule } from "ng-zorro-antd/descriptions";
 import { NzFormModule } from "ng-zorro-antd/form";
 import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzListModule } from "ng-zorro-antd/list";
+import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzProgressModule } from "ng-zorro-antd/progress";
 import { NzSpinModule } from "ng-zorro-antd/spin";
 import { NzToolTipModule } from "ng-zorro-antd/tooltip";
@@ -27,6 +28,7 @@ import {
   IsSessionLockoutPipe,
   SessionAtCapacityPipe,
 } from "./yoga-session.pipe";
+import { ReservationSuccessComponent } from './components/reservation-success/reservation-success.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import {
     SessionAtCapacityPipe,
     IsSessionLockoutPipe,
     IsSessionHistoryPipe,
+    ReservationSuccessComponent,
   ],
   imports: [
     CommonModule,
@@ -51,6 +54,7 @@ import {
     NzIconModule,
     NzListModule,
     NzProgressModule,
+    NzResultModule,
     NzSpinModule,
     NzToolTipModule,
     ReactiveFormsModule,

@@ -43,25 +43,28 @@
         <nz-form-item>
           <nz-form-label [nzSpan]="6">Obsazenost</nz-form-label>
           <nz-form-control [nzSpan]="14">
-            {{ yogaSession.attendees }} obsazeno /
-            {{ yogaSession.capacity - yogaSession.attendees }} volných
+            {{ yogaSession.attendees }} volných z
+            {{ yogaSession.capacity }} celkem
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
           <nz-form-label [nzSpan]="6" nzFor="name" nzRequired>Jméno a příjmení</nz-form-label>
-          <nz-form-control [nzSpan]="14">
+          <nz-form-control [nzSpan]="14" nzErrorTip="Zadejte jméno i příjmení">
             <input formControlName="name" nz-input name="name" id="name">
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-          <nz-form-label [nzSpan]="6" nzFor="phone" nzRequired>Telefon</nz-form-label>
-          <nz-form-control [nzSpan]="14">
+          <nz-form-label [nzSpan]="6" nzFor="phone" nzRequired>
+            Váš telefon
+          </nz-form-label>
+          <nz-form-control [nzSpan]="14" nzErrorTip="Zadejte telefonní číslo">
             <input formControlName="phone" nz-input name="phone" type="tel" id="phone">
           </nz-form-control>
         </nz-form-item>
         <nz-form-item nz-row>
           <nz-form-control [nzSpan]="14" [nzOffset]="6">
             <button nz-button nzType="primary" [disabled]="!reservationForm.valid">Rezervovat</button>
+            <a [routerLink]="['/terminy']" nz-button>Storno</a>
           </nz-form-control>
         </nz-form-item>
       </form>

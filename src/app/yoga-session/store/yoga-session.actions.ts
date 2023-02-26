@@ -22,6 +22,7 @@ export const attendYogaSession = createAction(
 
 export const attendYogaSessionSuccess = createAction(
   '[YogaSession] Attend yoga session success',
+  props<{ sessionId: string }>()
 );
 
 export const attendYogaSessionFailure = createAction(
