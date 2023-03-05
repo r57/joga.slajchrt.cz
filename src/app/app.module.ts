@@ -1,5 +1,6 @@
 import { NgModule, isDevMode } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
+import { TitleStrategy } from "@angular/router";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import cs from "@angular/common/locales/cs";
 import { FormsModule } from "@angular/forms";
@@ -32,16 +33,14 @@ import * as AppReducer from "./store/app.reducer";
 import { AppEffects } from "./store/app.effects";
 
 import { AppComponent } from "./app.component";
-import { HomeComponent } from "./home/home.component";
 import { YogaSessionModule } from "./yoga-session/yoga-session.module";
+import { TemplatePageTitleStrategy } from "./title.strategy";
+import { FirestoreService } from "./firestore/firestore.service";
 
 registerLocaleData(cs);
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -62,9 +61,14 @@ registerLocaleData(cs);
     SharedModule,
   ],
   providers: [
+    FirestoreService,
     ScreenTrackingService,
     UserTrackingService,
     { provide: NZ_I18N, useValue: cs_CZ },
+    {
+      provide: TitleStrategy,
+      useClass: TemplatePageTitleStrategy,
+    },
   ],
   bootstrap: [AppComponent],
 })

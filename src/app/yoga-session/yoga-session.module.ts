@@ -8,11 +8,15 @@ import { EffectsModule } from "@ngrx/effects";
 
 import { NzAlertModule } from "ng-zorro-antd/alert";
 import { NzButtonModule } from "ng-zorro-antd/button";
+import { NzDatePickerModule } from "ng-zorro-antd/date-picker";
 import { NzDescriptionsModule } from "ng-zorro-antd/descriptions";
 import { NzFormModule } from "ng-zorro-antd/form";
 import { NzIconModule } from "ng-zorro-antd/icon";
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzListModule } from "ng-zorro-antd/list";
-import { NzResultModule } from 'ng-zorro-antd/result';
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzResultModule } from "ng-zorro-antd/result";
 import { NzProgressModule } from "ng-zorro-antd/progress";
 import { NzSpinModule } from "ng-zorro-antd/spin";
 import { NzToolTipModule } from "ng-zorro-antd/tooltip";
@@ -27,8 +31,12 @@ import {
   IsSessionHistoryPipe,
   IsSessionLockoutPipe,
   SessionAtCapacityPipe,
+  IsSessionReservablePipe,
 } from "./yoga-session.pipe";
-import { ReservationSuccessComponent } from './components/reservation-success/reservation-success.component';
+import { ReservationSuccessComponent } from "./components/reservation-success/reservation-success.component";
+import { SessionAdminComponent } from "./components/session-admin/session-admin.component";
+import { SessionAdminFormComponent } from './components/session-admin-form/session-admin-form.component';
+import { SessionCreateComponent } from './components/session-create/session-create.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +45,11 @@ import { ReservationSuccessComponent } from './components/reservation-success/re
     SessionAtCapacityPipe,
     IsSessionLockoutPipe,
     IsSessionHistoryPipe,
+    IsSessionReservablePipe,
     ReservationSuccessComponent,
+    SessionAdminComponent,
+    SessionAdminFormComponent,
+    SessionCreateComponent,
   ],
   imports: [
     CommonModule,
@@ -49,10 +61,14 @@ import { ReservationSuccessComponent } from './components/reservation-success/re
     EffectsModule.forFeature([YogaSessionEffects]),
     NzAlertModule,
     NzButtonModule,
+    NzDatePickerModule,
     NzDescriptionsModule,
     NzFormModule,
     NzIconModule,
+    NzInputModule,
+    NzInputNumberModule,
     NzListModule,
+    NzMessageModule,
     NzProgressModule,
     NzResultModule,
     NzSpinModule,

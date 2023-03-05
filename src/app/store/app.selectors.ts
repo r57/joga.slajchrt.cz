@@ -5,4 +5,4 @@ export const selectAppState = createFeatureSelector<fromApp.State>(
   fromApp.appFeatureKey
 );
 
-export const selectLoggedIn = createSelector(selectAppState, state => state.user === null);
+export const selectLoggedIn = createSelector(selectAppState, state => state.user !== null);

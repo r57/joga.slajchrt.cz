@@ -5,7 +5,15 @@ export interface YogaSession {
   attendees: number;
   capacity: number,
   date: DateTime;
+  place: string;
   lockHoursBefore: number;
+}
+
+export interface YogaSessionAttendee {
+  id: string;
+  name: string;
+  phone: string;
+  sessionId: string;
 }
 
 export function isSessionAfterLockout(yogaSession: YogaSession): boolean {

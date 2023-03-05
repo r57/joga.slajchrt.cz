@@ -1,60 +1,32 @@
-nz-layout {
-  min-height: 100vh;
-}
-
-nz-header {
-  height: auto;
-  position: fixed;
-  width: 100%;
-  background-color: #fff;
-}
-
-.logo {
-  color: #D1E751;
+.title {
+  color: #006cb5;
   text-align: center;
   font-size: 1.7em;
-  line-height: 64px;
-  margin-right: 2em;
+  line-height: 24px;
+  margin-bottom: 48px;
   .sub {
-    display: block;
-    margin-left: .4em;
-    font-size: .8em;
-    line-height: 30px;
-    color: #ccc;
-  }
-}
-
-[nz-menu] {
-  text-align: center;
-}
-
-nz-content {
-  padding: 0 50px 9;
-}
-
-nz-footer {
-  text-align: center;
-  font-size: .8em;
-  color: #aaa;
-  line-height: 32px;
-  a {
-    color: #aaa;
-  }
-  .login, .logout {
-    font-size: 1em;
-    color: #aaa;
-    cursor: pointer;
-    float: right;
-  }
-  .logout {
-    color: #f00;
+    color: #666;
+    display: inline-block;
+    padding-right: 10px;
+    margin-right: 10px;
+    border-right: #666 1px solid;
   }
 }
 
 .inner-content {
   background: #fff;
-  padding: 184px 24px 24px 24px;
-  min-height: 280px;
+  padding: 48px 10px 10px;
   margin: 0 auto;
-  max-width: 1000px;
+  max-width: 600px;
+}
+
+.login, .logout {
+  font-size: .8em;
+  color: #eee;
+  cursor: pointer;
+  float: right;
+  margin: 0 10px 10px;
+}
+.logout {
+  color: #f00;
 }

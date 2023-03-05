@@ -4,6 +4,8 @@ import { Observable } from "rxjs";
 import { DateTime } from "luxon";
 
 import * as YogaSessionSelectors from "./store/yoga-session.selectors";
+import * as AppSelectors from "../store/app.selectors";
+
 import {
   YogaSession,
   isSessionAfterLockout,
@@ -16,10 +18,13 @@ import {
   styleUrls: ["./yoga-session.component.scss"],
 })
 export class YogaSessionComponent {
+
+  $loggedIn: Observable<boolean>;
   $yogaSessions: Observable<YogaSession[]>;
   $yogaSessionsLoading: Observable<boolean>;
 
   constructor(store: Store) {
+    this.$loggedIn = store.select(AppSelectors.selectLoggedIn);
     this.$yogaSessions = store.select(YogaSessionSelectors.selectYogaSessions);
     this.$yogaSessionsLoading = store.select(
       YogaSessionSelectors.selectYogaSessionsLoading

@@ -1,5 +1,3 @@
-<h1>Rezervace termínu</h1>
-
 <ng-container *ngIf="{ 
   yogaSession: yogaSession$ | async,
   loading: yogaSessionLoading$ | async
@@ -7,9 +5,9 @@
 
   <nz-spin *ngIf="data.loading" class="loader" nzSimple [nzSize]="'large'"></nz-spin>
 
-  <ng-container *ngIf="data.yogaSession as yogaSession" [ngSwitch]="true">
+  <ng-container *ngIf="data.yogaSession as yogaSession" appMatch>
     <nz-alert  
-      *ngSwitchCase="yogaSession | isSessionHistory"
+      *appMatchCase="yogaSession | isSessionHistory"
       nzType="error"
       nzMessage="Termín nelze rezervovat"
       nzDescription="Tanto termín již proběhl"
@@ -17,7 +15,7 @@
     ></nz-alert>
 
     <nz-alert  
-      *ngSwitchCase="yogaSession | isSessionAtCapacity"
+      *appMatchCase="yogaSession | isSessionAtCapacity"
       nzType="error"
       nzMessage="Termín nelze rezervovat"
       nzDescription="Tanto termín je již zaplněn"
@@ -25,14 +23,14 @@
     ></nz-alert>
     
     <nz-alert  
-      *ngSwitchCase="yogaSession | isSessionLockout "
+      *appMatchCase="yogaSession | isSessionLockout "
       nzType="error"
       nzMessage="Termín nelze rezervovat"
       nzDescription="Tanto termín je již uzamčen pro nové rezervace"
       nzShowIcon
     ></nz-alert>
 
-    <ng-container *ngSwitchDefault>
+    <ng-container *appMatchCase="yogaSession | isSessionReservable">
       <form nz-form [formGroup]="reservationForm" (ngSubmit)="onReservationFormSubmit()">
         <nz-form-item>
           <nz-form-label [nzSpan]="6">Termín</nz-form-label>
@@ -43,7 +41,7 @@
         <nz-form-item>
           <nz-form-label [nzSpan]="6">Obsazenost</nz-form-label>
           <nz-form-control [nzSpan]="14">
-            {{ yogaSession.attendees }} volných z
+            {{ yogaSession.capacity - yogaSession.attendees }} volných z
             {{ yogaSession.capacity }} celkem
           </nz-form-control>
         </nz-form-item>

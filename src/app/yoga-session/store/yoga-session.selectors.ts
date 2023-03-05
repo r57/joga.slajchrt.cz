@@ -10,3 +10,5 @@ export const selectYogaSessions = createSelector(selectYogaSessionsState, s => s
 export const selectYogaSession = (id: string) => createSelector(selectYogaSessions, (sessions) => sessions.find(s => s.id === id))
 
 export const selectYogaSessionsLoading = createSelector(selectYogaSessionsState, s => s.loading);
+
+export const selectYogaSessionAttendees = createSelector(selectYogaSessionsState, s => s.attendees);

@@ -8,7 +8,7 @@ export class LuxonDateMediumPipe implements PipeTransform {
 
   transform(value: any): string | null {
     if (value instanceof DateTime) {
-      return value.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY);
+      return value.toFormat("EEE d.M. H:mm");
     } else {
       return null;
     }

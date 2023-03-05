@@ -1,0 +1,36 @@
+<ng-container *ngIf="{ 
+  yogaSession: yogaSession$ | async,
+  yogaSessionAttendees: yogaSessionAttendees$ | async
+} as data">
+
+  <app-session-admin-form *ngIf="data.yogaSession as yogaSession" [session]="yogaSession"
+    (saveSession)="onSessionFormSubmit($event)"></app-session-admin-form>
+
+  <nz-list [nzBordered]="true" *ngIf="data.yogaSession as yogaSession">
+    <nz-list-header class="reservations-header">
+      <span nz-icon nzType="usergroup-add" nzTheme="outline"></span>
+      Rezervace: {{ yogaSession.attendees }} celkem
+    </nz-list-header>
+    <nz-list-item *ngFor="let yogaSessionAttendee of data.yogaSessionAttendees">
+      <nz-list-item-meta>
+        <nz-list-item-meta-title>
+          <span nz-icon nzType="user" nzTheme="outline"></span>
+          {{ yogaSessionAttendee.name }}
+        </nz-list-item-meta-title>
+        <nz-list-item-meta-description>
+          <span nz-icon nzType="phone" nzTheme="outline"></span>
+          {{ yogaSessionAttendee.phone }}
+        </nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <ul nz-list-item-actions>
+        <nz-list-item-action>
+          <button nz-button nzType="primary" nzDanger (click)="onAttendeeRemove(yogaSessionAttendee)">
+            <span nz-icon nzType="close-circle" nzTheme="outline"></span>
+            Zrušit
+          </button>
+        </nz-list-item-action>
+      </ul>
+    </nz-list-item>
+  </nz-list>
+
+</ng-container>

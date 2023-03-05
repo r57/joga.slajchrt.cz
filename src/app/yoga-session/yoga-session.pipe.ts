@@ -31,3 +31,12 @@ export class IsSessionHistoryPipe implements PipeTransform {
     return value ? isSessionHistory(value) : null;
   }
 }
+
+@Pipe({
+  name: "isSessionReservable",
+})
+export class IsSessionReservablePipe implements PipeTransform {
+  transform(value: any): boolean | null {
+    return value ? !isSessionHistory(value) && !isSessionAfterLockout(value) && !isSessionAtCapacity(value) : null;
+  }
+}

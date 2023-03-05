@@ -1,41 +1,14 @@
-<nz-layout>
-  <nz-header>
-    <div class="logo">
-      Jóga Píšť
-      <span class="sub">Marie Šlajchrtová</span>
-    </div>
-    <ul nz-menu nzTheme="light" nzMode="horizontal">
-      <li nz-menu-item>
-        <a [routerLink]="['/']">
-          Úvod
-        </a>
-      </li>
-      <li nz-menu-item>
-        <a [routerLink]="['/terminy']">
-          Termíny
-        </a>
-      </li>
-      <li nz-menu-item>
-        <a [routerLink]="['/kontakt']">
-          Kontakt
-        </a>
-      </li>
-    </ul>
-  </nz-header>
-  <nz-content>
-    <div class="inner-content">
-      <router-outlet></router-outlet>
-    </div>
-  </nz-content>
-  <nz-footer>
-    2023 by <a href="https://slajchrt.cz" target="_blank">slajchrt</a>
-    <button *ngIf="$loggedIn | async; else loggedOut" (click)="onLogin()" class="login" nz-button nzType="text" nzShape="circle">
-      <span nz-icon nzType="lock"></span>
-    </button>
-    <ng-template #loggedOut>
-      <button (click)="onLogout()" class="logout" nz-button nzType="text" nzShape="circle">
-        <span nz-icon nzType="unlock"></span>
-      </button>
-    </ng-template>
-  </nz-footer>
-</nz-layout>
+<div class="inner-content">
+  <h1 class="title">
+    <span class="sub">{{ title$ | async }}</span>Jóga Píšť
+  </h1>
+  <router-outlet></router-outlet>
+</div>
+<button *ngIf="$loggedIn | async; else loggedOut" (click)="onLogout()" class="logout" nz-button nzType="text" nzShape="circle">
+  <span nz-icon nzType="unlock"></span>
+</button>
+<ng-template #loggedOut>
+  <button (click)="onLogin()" class="login" nz-button nzType="text" nzShape="circle">
+    <span nz-icon nzType="lock"></span>
+  </button>
+</ng-template>

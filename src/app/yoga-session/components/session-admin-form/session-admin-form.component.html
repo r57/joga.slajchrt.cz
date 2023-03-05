@@ -1,0 +1,40 @@
+<form nz-form [formGroup]="sessionForm" (ngSubmit)="onSessionFormSubmit()">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6">Datum a čas</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <nz-date-picker formControlName="date" [nzShowTime]="{ nzFormat: 'HH:mm' }"
+        nzFormat="EEE d.M. H:mm"></nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6">Místo</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="place" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6">Kapacita</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <nz-input-number-group nzAddOnAfter="osob">
+        <nz-input-number formControlName="capacity" [nzMin]="0"></nz-input-number>
+      </nz-input-number-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6">Uzamknout před</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <nz-input-number-group nzAddOnAfter="hodin">
+        <nz-input-number formControlName="lockHoursBefore" [nzMin]="0"></nz-input-number>
+      </nz-input-number-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <button nz-button nzType="primary" [disabled]="!sessionForm.valid">Uložit termín</button>
+      <button nz-button routerLink="/terminy">
+        <span nz-icon nzType="double-left" nzTheme="outline"></span>
+        Zpět
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

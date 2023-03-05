@@ -1,27 +1,40 @@
-import { createReducer, on } from '@ngrx/store';
+import { createReducer, on } from "@ngrx/store";
 
-import { YogaSession } from '../yoga-session.model';
-import * as yogaSessionActions from './yoga-session.actions';
+import { YogaSession, YogaSessionAttendee } from "../yoga-session.model";
+import * as YogaSessionActions from "./yoga-session.actions";
 
-export const eventFeatureKey = 'event';
+export const eventFeatureKey = "event";
 
 export interface State {
   loading: boolean;
   sessions: YogaSession[];
+  attendees: YogaSessionAttendee[];
 }
 
 export const initialState: State = {
   loading: false,
   sessions: [],
+  attendees: [],
 };
 
 export const reducer = createReducer(
   initialState,
 
-  on(yogaSessionActions.loadYogaSessions, state => ({ ...state, loading: true })),
+  on(YogaSessionActions.loadYogaSessions, (state) => ({
+    ...state,
+    loading: true,
+  })),
 
-  on(yogaSessionActions.loadYogaSessionsSuccess, (state, action) => ({ ...state, loading: false, sessions: action.sessions }))
+  on(YogaSessionActions.loadYogaSessionsSuccess, (state, action) => ({
+    ...state,
+    loading: false,
+    sessions: action.sessions,
+  })),
 
+  on(YogaSessionActions.loadYogaSessionAttendeesSuccess, (state, action) => ({
+    ...state,
+    attendees: action.attendees,
+  }))
 );
 
 export { YogaSession };
