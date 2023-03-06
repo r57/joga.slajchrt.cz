@@ -35,12 +35,21 @@
         <nz-form-item>
           <nz-form-label [nzSpan]="6">Termín</nz-form-label>
           <nz-form-control [nzSpan]="14">
+            <span nz-icon nzType="calendar" nzTheme="outline"></span>
             {{ yogaSession.date | luxonDateMedium }}
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">Místo</nz-form-label>
+          <nz-form-control [nzSpan]="14">
+            <span nz-icon nzType="environment" nzTheme="outline"></span>
+            {{ yogaSession.place }}
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
           <nz-form-label [nzSpan]="6">Obsazenost</nz-form-label>
           <nz-form-control [nzSpan]="14">
+            <span nz-icon nzType="usergroup-add" nzTheme="outline"></span>
             {{ yogaSession.capacity - yogaSession.attendees }} volných z
             {{ yogaSession.capacity }} celkem
           </nz-form-control>

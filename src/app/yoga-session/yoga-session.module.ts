@@ -9,6 +9,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { NzAlertModule } from "ng-zorro-antd/alert";
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzDatePickerModule } from "ng-zorro-antd/date-picker";
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzDescriptionsModule } from "ng-zorro-antd/descriptions";
 import { NzFormModule } from "ng-zorro-antd/form";
 import { NzIconModule } from "ng-zorro-antd/icon";
@@ -62,6 +63,7 @@ import { SessionCreateComponent } from './components/session-create/session-crea
     NzAlertModule,
     NzButtonModule,
     NzDatePickerModule,
+    NzDividerModule,
     NzDescriptionsModule,
     NzFormModule,
     NzIconModule,

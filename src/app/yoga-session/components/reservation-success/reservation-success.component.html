@@ -5,10 +5,23 @@
   <nz-result *ngIf="data.yogaSession as yogaSession"
     nzStatus="success"
     [nzTitle]="'Termín rezervován'"
-    [nzSubTitle]="'Budeme se těšit v ' + (yogaSession.date | luxonDateMedium) + ''"
   >
     <div nz-result-extra>
-      <a nz-button [routerLink]="'/terminy'">Zpět na přehled termínů</a>
+      <p>
+        <span nz-icon nzType="calendar" nzTheme="outline"></span>
+        {{ yogaSession.date | luxonDateMedium }}
+      </p>
+      <p>
+        <span nz-icon nzType="environment" nzTheme="outline"></span>
+        {{ yogaSession.place }}
+      </p>
+      <nz-divider></nz-divider>
+      <p>
+        <a nz-button [routerLink]="'/terminy'">
+          <span nz-icon nzType="double-left" nzTheme="outline"></span>
+          Zpět na přehled termínů
+        </a>
+      </p>
     </div>
   </nz-result>
 

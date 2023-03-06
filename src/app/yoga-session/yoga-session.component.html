@@ -9,7 +9,12 @@
   <nz-list-item *ngFor="let yogaSession of $yogaSessions | async">
     <nz-list-item-meta appMatch>
       <nz-list-item-meta-title>
-        {{ yogaSession.date | luxonDateMedium }}
+        <span nz-icon nzType="calendar" nzTheme="outline"></span>
+        {{ yogaSession.date | luxonDateMedium }}<br />
+        <span nz-icon nzType="environment" nzTheme="outline"></span>
+        <span class="yoga-session-place">
+          {{ yogaSession.place }}
+        </span>
       </nz-list-item-meta-title>
 
       <nz-list-item-meta-description *appMatchCase="yogaSession | isSessionHistory" nz-tooltip
