@@ -1,0 +1,37 @@
+<nz-result nzStatus="info">
+  <div nz-result-extra>
+    <p>
+      Pro správu rezervací zadejte své telefoní číslo a opište kód z SMS.
+    </p>
+    <form nz-form [formGroup]="phoneAuthForm" (submit)="onPhoneAuthFormSubmit()">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="phone" nzRequired>
+          Váš telefon
+        </nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Zadejte telefonní číslo">
+          <nz-input-group nzSearch [nzAddOnAfter]="suffixSendCode">
+            <input formControlName="phone" nz-input name="phone" type="tel" id="phone">
+          </nz-input-group>
+          <ng-template #suffixSendCode>
+            <button nz-button nzType="primary" nzSearch (click)="onSendCode()" [nzLoading]="sendCodeLoading$ | async">Zaslat kód</button>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="phone" nzRequired>
+          SMS kód
+        </nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Zadejte šestimístný kód">
+          <input formControlName="code" nz-input name="code" type="number" id="code">
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item nz-row>
+        <nz-form-control>
+          <button nz-button nzType="primary" [disabled]="!phoneAuthForm.valid || !awaitingConfirmation()">Zobrazit rezervace</button>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a routerLink="/" nz-button>Storno</a>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+</nz-result>

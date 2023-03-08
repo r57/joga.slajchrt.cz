@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { OwnReservationsComponent } from "./yoga-session/components/own-reservations/own-reservations.component";
 
 import { ReservationSuccessComponent } from "./yoga-session/components/reservation-success/reservation-success.component";
 import { ReservationComponent } from "./yoga-session/components/reservation/reservation.component";
@@ -32,6 +33,11 @@ const routes: Routes = [
     path: "terminy",
     component: YogaSessionComponent,
     title: "Termíny",
+  },
+  {
+    path: "moje-rezervace",
+    component: OwnReservationsComponent,
+    title: "Moje rezervace",
   },
   {
     path: "**",

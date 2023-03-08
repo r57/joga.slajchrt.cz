@@ -22,12 +22,12 @@ export class AppComponent {
   title$: Observable<string>;
 
   constructor(
-    store: Store,
+    private store: Store,
     private auth: AngularFireAuth,
     router: Router,
     route: ActivatedRoute,
   ) {
-    this.$loggedIn = store.select(AppSelectors.selectLoggedIn);
+    this.$loggedIn = store.select(AppSelectors.selectAdmin);
 
     store.dispatch(YogaSessionActions.loadYogaSessions());
     store.dispatch(AppActions.loadAuth());
@@ -43,6 +43,6 @@ export class AppComponent {
   }
 
   onLogout() {
-    this.auth.signOut();
+    this.store.dispatch(AppActions.signOut());
   }
 }

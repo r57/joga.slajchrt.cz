@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { AngularFirestore } from "@angular/fire/compat/firestore";
+import { AngularFirestore, QueryFn } from "@angular/fire/compat/firestore";
 import {
   DocumentData,
   DocumentReference,
@@ -14,6 +14,7 @@ import {
   YogaSession,
   YogaSessionAttendee,
 } from "../yoga-session/yoga-session.model";
+import { sanitizePhone } from "../utils";
 
 interface FirestoreYogaSession {
   attendees: number;
@@ -54,49 +55,6 @@ export class UpdateYogaSessionError extends YogaSessionError {
 export class FirestoreService {
   constructor(private angularFirestore: AngularFirestore) {}
 
-  getYogaSessions(): Observable<YogaSession[]> {
-    return this.angularFirestore
-      .collection<FirestoreYogaSession>(YogaSessionCollection, (ref) =>
-        ref.orderBy("date", "asc")
-      )
-      .valueChanges({ idField: "id" })
-      .pipe(
-        map((firestoreSessions) => {
-          return firestoreSessions.map<YogaSession>((firestoreSession) => ({
-            id: firestoreSession.id,
-            attendees: firestoreSession.attendees,
-            capacity: firestoreSession.capacity,
-            date: DateTime.fromJSDate(firestoreSession.date.toDate()),
-            place: firestoreSession.place,
-            lockHoursBefore: firestoreSession.lockHoursBefore,
-          }));
-        })
-      );
-  }
-
-  getYogaSessionAttendees(
-    sessionId: string
-  ): Observable<YogaSessionAttendee[]> {
-    return this.angularFirestore
-      .collection<FirestoreYogaSessionAttendee>(
-        YogaSessionAttendeeCollection,
-        (ref) => ref.where("sessionId", "==", sessionId)
-      )
-      .valueChanges({ idField: "id" })
-      .pipe(
-        map((firestoreAttendees) => {
-          return firestoreAttendees.map<YogaSessionAttendee>(
-            (firestoreAttendee) => ({
-              id: firestoreAttendee.id,
-              name: firestoreAttendee.name,
-              phone: firestoreAttendee.phone,
-              sessionId: firestoreAttendee.sessionId,
-            })
-          );
-        })
-      );
-  }
-
   attendYogaSession(
     sessionId: string,
     name: string,
@@ -123,13 +81,86 @@ export class FirestoreService {
             const attendeeData: FirestoreYogaSessionAttendee = {
               sessionId: sessionId,
               name: name,
-              phone: phone,
+              phone: sanitizePhone(phone),
             };
             transaction.set(attendeeRef, attendeeData);
           }
         } else {
           throw new AttendYogaSessionError("Termín neexistuje");
         }
+      }
+    );
+  }
+
+  createYogaSession(
+    capacity: number,
+    date: DateTime,
+    lockHoursBefore: number,
+    place: string
+  ): Promise<void> {
+    const sessionPath = `${YogaSessionCollection}/${this.angularFirestore.createId()}`;
+    const sessionRef = this.angularFirestore.firestore.doc(sessionPath);
+    const sessionData: FirestoreYogaSession = {
+      attendees: 0,
+      capacity,
+      date: Timestamp.fromDate(date.toJSDate()),
+      lockHoursBefore,
+      place,
+    };
+
+    return sessionRef.set(sessionData);
+  }
+
+  getYogaSessions(): Observable<YogaSession[]> {
+    return this.angularFirestore
+      .collection<FirestoreYogaSession>(YogaSessionCollection, (ref) =>
+        ref.orderBy("date", "asc")
+      )
+      .valueChanges({ idField: "id" })
+      .pipe(
+        map((firestoreSessions) => {
+          return firestoreSessions.map<YogaSession>((firestoreSession) => ({
+            id: firestoreSession.id,
+            attendees: firestoreSession.attendees,
+            capacity: firestoreSession.capacity,
+            date: DateTime.fromJSDate(firestoreSession.date.toDate()),
+            place: firestoreSession.place,
+            lockHoursBefore: firestoreSession.lockHoursBefore,
+          }));
+        })
+      );
+  }
+
+  getYogaSessionAttendees(
+    sessionId: string
+  ): Observable<YogaSessionAttendee[]> {
+    return this.queryYogaSessionAttendees((ref) =>
+      ref.where("sessionId", "==", sessionId)
+    );
+  }
+
+  getAttendeesByPhone(attendeePhone: string): Observable<YogaSessionAttendee[]> {
+    return this.queryYogaSessionAttendees((ref) =>
+      ref.where("phone", "==", attendeePhone)
+    );
+  }
+
+  removeYogaSessionAttendee(
+    sessionId: string,
+    attendeeId: string
+  ): Promise<void> {
+    return this.runSessionTransaction(
+      sessionId,
+      async (transaction, sessionRef, sessionSnapshot) => {
+        const yogaSession = sessionSnapshot.data() as YogaSession;
+
+        transaction.update(sessionRef, {
+          attendees: yogaSession.attendees - 1,
+        });
+
+        const attendeePath = `${YogaSessionAttendeeCollection}/${attendeeId}`;
+        const attendeeRef = this.angularFirestore.firestore.doc(attendeePath);
+        transaction.delete(attendeeRef as any);
       }
     );
   }
@@ -154,43 +185,27 @@ export class FirestoreService {
     );
   }
 
-  removeYogaSessionAttendee(
-    sessionId: string,
-    attendeeId: string
-  ): Promise<void> {
-    return this.runSessionTransaction(
-      sessionId,
-      async (transaction, sessionRef, sessionSnapshot) => {
-        const yogaSession = sessionSnapshot.data() as YogaSession;
-
-        transaction.update(sessionRef, {
-          attendees: yogaSession.attendees - 1,
-        });
-
-        const attendeePath = `${YogaSessionAttendeeCollection}/${attendeeId}`;
-        const attendeeRef = this.angularFirestore.firestore.doc(attendeePath);
-        transaction.delete(attendeeRef as any);
-      }
-    );
-  }
-
-  createYogaSession(
-    capacity: number,
-    date: DateTime,
-    lockHoursBefore: number,
-    place: string
-  ): Promise<void> {
-    const sessionPath = `${YogaSessionCollection}/${this.angularFirestore.createId()}`;
-    const sessionRef = this.angularFirestore.firestore.doc(sessionPath);
-    const sessionData: FirestoreYogaSession = {
-      attendees: 0,
-      capacity,
-      date: Timestamp.fromDate(date.toJSDate()),
-      lockHoursBefore,
-      place,
-    };
-
-    return sessionRef.set(sessionData);
+  private queryYogaSessionAttendees(
+    query: QueryFn
+  ): Observable<YogaSessionAttendee[]> {
+    return this.angularFirestore
+      .collection<FirestoreYogaSessionAttendee>(
+        YogaSessionAttendeeCollection,
+        query
+      )
+      .valueChanges({ idField: "id" })
+      .pipe(
+        map((firestoreAttendees) => {
+          return firestoreAttendees.map<YogaSessionAttendee>(
+            (firestoreAttendee) => ({
+              id: firestoreAttendee.id,
+              name: firestoreAttendee.name,
+              phone: firestoreAttendee.phone,
+              sessionId: firestoreAttendee.sessionId,
+            })
+          );
+        })
+      );
   }
 
   private runSessionTransaction<T>(

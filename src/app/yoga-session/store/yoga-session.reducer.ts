@@ -6,15 +6,17 @@ import * as YogaSessionActions from "./yoga-session.actions";
 export const eventFeatureKey = "event";
 
 export interface State {
-  loading: boolean;
   sessions: YogaSession[];
+  sessionsLoading: boolean;
   attendees: YogaSessionAttendee[];
+  attendeesLoading: boolean;
 }
 
 export const initialState: State = {
-  loading: false,
   sessions: [],
+  sessionsLoading: false,
   attendees: [],
+  attendeesLoading: false,
 };
 
 export const reducer = createReducer(
@@ -22,18 +24,35 @@ export const reducer = createReducer(
 
   on(YogaSessionActions.loadYogaSessions, (state) => ({
     ...state,
-    loading: true,
+    sessionsLoading: true,
   })),
 
   on(YogaSessionActions.loadYogaSessionsSuccess, (state, action) => ({
     ...state,
-    loading: false,
+    sessionsLoading: false,
     sessions: action.sessions,
   })),
 
+  on(YogaSessionActions.loadYogaSessionAttendees, (state) => ({
+    ...state,
+    attendeesLoading: true,
+  })),
+  
   on(YogaSessionActions.loadYogaSessionAttendeesSuccess, (state, action) => ({
     ...state,
     attendees: action.attendees,
+    attendeesLoading: false,
+  })),
+
+  on(YogaSessionActions.loadOwnYogaAttendance, (state) => ({
+    ...state,
+    attendeesLoading: true,
+  })),
+
+  on(YogaSessionActions.loadOwnYogaAttendanceSuccess, (state, action) => ({
+    ...state,
+    attendees: action.attendees,
+    attendeesLoading: false,
   }))
 );
 

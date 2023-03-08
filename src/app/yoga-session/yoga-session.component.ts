@@ -24,7 +24,7 @@ export class YogaSessionComponent {
   $yogaSessionsLoading: Observable<boolean>;
 
   constructor(store: Store) {
-    this.$loggedIn = store.select(AppSelectors.selectLoggedIn);
+    this.$loggedIn = store.select(AppSelectors.selectAdmin);
     this.$yogaSessions = store.select(YogaSessionSelectors.selectYogaSessions);
     this.$yogaSessionsLoading = store.select(
       YogaSessionSelectors.selectYogaSessionsLoading

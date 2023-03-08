@@ -2,16 +2,24 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Action } from "@ngrx/store";
-import { TypedAction } from "@ngrx/store/src/models";
-import { NzMessageService } from "ng-zorro-antd/message";
 import { of } from "rxjs";
-import { switchMap, map, catchError, concatMap, tap } from "rxjs/operators";
+import {
+  switchMap,
+  map,
+  catchError,
+  concatMap,
+  tap,
+  takeUntil,
+} from "rxjs/operators";
+import { NzMessageService } from "ng-zorro-antd/message";
 import {
   FirestoreService,
   AttendYogaSessionError,
   UpdateYogaSessionError,
-} from "src/app/firestore/firestore.service";
+} from "src/app/firebase/firestore.service";
+
 import * as YogaSessionActions from "./yoga-session.actions";
+import * as AppActions from "../../store/app.actions";
 
 @Injectable()
 export class YogaSessionEffects {
@@ -198,11 +206,35 @@ export class YogaSessionEffects {
     () => {
       return this.actions$.pipe(
         ofType(YogaSessionActions.createYogaSessionSuccess),
-        tap(() => this.router.navigate(['terminy']))
+        tap(() => this.router.navigate(["terminy"]))
       );
     },
     { dispatch: false }
   );
+
+  getOwnYogaSessions$ = createEffect(() => {
+    const signOuts$ = this.actions$.pipe(ofType(AppActions.signOut));
+
+    return this.actions$.pipe(
+      ofType(YogaSessionActions.loadOwnYogaAttendance),
+      switchMap((action) =>
+        this.firestoreService
+          .getAttendeesByPhone(action.phone)
+          .pipe(takeUntil(signOuts$))
+      ),
+      map((attendees) =>
+        YogaSessionActions.loadOwnYogaAttendanceSuccess({ attendees })
+      ),
+      catchError((err) => {
+        console.error(err);
+        return of(
+          YogaSessionActions.loadOwnYogaAttendanceFailure({
+            message: "Nepodařilo se načíst vaše rezervace",
+          })
+        );
+      })
+    );
+  });
 
   constructor(
     private actions$: Actions,

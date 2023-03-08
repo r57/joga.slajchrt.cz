@@ -35,7 +35,8 @@ import { AppEffects } from "./store/app.effects";
 import { AppComponent } from "./app.component";
 import { YogaSessionModule } from "./yoga-session/yoga-session.module";
 import { TemplatePageTitleStrategy } from "./title.strategy";
-import { FirestoreService } from "./firestore/firestore.service";
+import { FirestoreService } from "./firebase/firestore.service";
+import { PhoneAuthService } from "./firebase/phoneauth.service";
 
 registerLocaleData(cs);
 
@@ -62,6 +63,7 @@ registerLocaleData(cs);
   ],
   providers: [
     FirestoreService,
+    PhoneAuthService,
     ScreenTrackingService,
     UserTrackingService,
     { provide: NZ_I18N, useValue: cs_CZ },

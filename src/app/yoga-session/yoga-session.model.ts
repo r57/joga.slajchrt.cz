@@ -16,6 +16,11 @@ export interface YogaSessionAttendee {
   sessionId: string;
 }
 
+export interface YogaSessionReservation {
+  attendee: YogaSessionAttendee;
+  session: YogaSession;
+}
+
 export function isSessionAfterLockout(yogaSession: YogaSession): boolean {
   const lockoutTime = yogaSession.date.minus({ hours: yogaSession.lockHoursBefore });
   return !isSessionHistory(yogaSession) && DateTime.now() > lockoutTime;

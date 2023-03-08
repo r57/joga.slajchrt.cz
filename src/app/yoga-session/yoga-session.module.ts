@@ -19,6 +19,7 @@ import { NzListModule } from "ng-zorro-antd/list";
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzResultModule } from "ng-zorro-antd/result";
 import { NzProgressModule } from "ng-zorro-antd/progress";
+import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzSpinModule } from "ng-zorro-antd/spin";
 import { NzToolTipModule } from "ng-zorro-antd/tooltip";
 
@@ -38,6 +39,8 @@ import { ReservationSuccessComponent } from "./components/reservation-success/re
 import { SessionAdminComponent } from "./components/session-admin/session-admin.component";
 import { SessionAdminFormComponent } from './components/session-admin-form/session-admin-form.component';
 import { SessionCreateComponent } from './components/session-create/session-create.component';
+import { AttendeeLoginComponent } from './components/attendee-login/attendee-login.component';
+import { OwnReservationsComponent } from './components/own-reservations/own-reservations.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,8 @@ import { SessionCreateComponent } from './components/session-create/session-crea
     SessionAdminComponent,
     SessionAdminFormComponent,
     SessionCreateComponent,
+    AttendeeLoginComponent,
+    OwnReservationsComponent,
   ],
   imports: [
     CommonModule,
@@ -73,6 +78,7 @@ import { SessionCreateComponent } from './components/session-create/session-crea
     NzMessageModule,
     NzProgressModule,
     NzResultModule,
+    NzSpaceModule,
     NzSpinModule,
     NzToolTipModule,
     ReactiveFormsModule,

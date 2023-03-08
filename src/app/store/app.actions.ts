@@ -1,11 +1,10 @@
-import { createAction, props } from '@ngrx/store';
+import { createAction, props } from "@ngrx/store";
 
-export const loadAuth = createAction(
-  '[App] Load auth'
-);
+export const loadAuth = createAction("[Auth] Load auth");
+
+export const signOut = createAction("[Auth] Sign out");
 
 export const authChange = createAction(
-  '[App] Auth change',
-  props<{ user: string | null }>(),
+  "[App] Auth change",
+  props<{ email: string | null; phone: string | null }>()
 );
-

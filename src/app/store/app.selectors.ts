@@ -5,4 +5,8 @@ export const selectAppState = createFeatureSelector<fromApp.State>(
   fromApp.appFeatureKey
 );
 
-export const selectLoggedIn = createSelector(selectAppState, state => state.user !== null);
+export const selectAdmin = createSelector(selectAppState, state => state.admin);
+
+export const selectAttendeePhone = createSelector(selectAppState, state => state.attendeePhone);
+
+export const selectLoading = createSelector(selectAppState, state => state.loading);

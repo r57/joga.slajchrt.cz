@@ -3,13 +3,14 @@ import {
   isSessionAfterLockout,
   isSessionAtCapacity,
   isSessionHistory,
+  YogaSession,
 } from "./yoga-session.model";
 
 @Pipe({
   name: "isSessionAtCapacity",
 })
 export class SessionAtCapacityPipe implements PipeTransform {
-  transform(value: any): boolean | null {
+  transform(value: YogaSession): boolean | null {
     return value ? isSessionAtCapacity(value) : null;
   }
 }
@@ -18,7 +19,7 @@ export class SessionAtCapacityPipe implements PipeTransform {
   name: "isSessionLockout",
 })
 export class IsSessionLockoutPipe implements PipeTransform {
-  transform(value: any): boolean | null {
+  transform(value: YogaSession): boolean | null {
     return value ? isSessionAfterLockout(value) : null;
   }
 }
@@ -27,7 +28,7 @@ export class IsSessionLockoutPipe implements PipeTransform {
   name: "isSessionHistory",
 })
 export class IsSessionHistoryPipe implements PipeTransform {
-  transform(value: any): boolean | null {
+  transform(value: YogaSession): boolean | null {
     return value ? isSessionHistory(value) : null;
   }
 }
@@ -36,7 +37,7 @@ export class IsSessionHistoryPipe implements PipeTransform {
   name: "isSessionReservable",
 })
 export class IsSessionReservablePipe implements PipeTransform {
-  transform(value: any): boolean | null {
+  transform(value: YogaSession): boolean | null {
     return value ? !isSessionHistory(value) && !isSessionAfterLockout(value) && !isSessionAtCapacity(value) : null;
   }
 }

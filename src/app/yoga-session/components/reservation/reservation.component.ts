@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { YogaSession } from '../../store/yoga-session.reducer';
 import * as YogaSessionActions from '../../store/yoga-session.actions';
 import * as YogaSessionSelectors from '../../store/yoga-session.selectors';
+import { nameValidator, phoneValidator } from 'src/app/validators';
 
 @Component({
   selector: 'app-reservation',
@@ -20,8 +21,8 @@ export class ReservationComponent {
   yogaSessionLoading$: Observable<boolean>;
 
   reservationForm = this.fb.group({
-    name: ['', [Validators.required, this.nameValidator]],
-    phone: ['', [Validators.required, this.phoneValidator]],
+    name: ['', [Validators.required, nameValidator]],
+    phone: ['', [Validators.required, phoneValidator]],
   });
 
   constructor(private store: Store, private route: ActivatedRoute, private fb: FormBuilder) {
@@ -42,16 +43,6 @@ export class ReservationComponent {
     if (this.reservationForm.valid && name && phone && sessionId) {
       this.store.dispatch(YogaSessionActions.attendYogaSession({name, phone, sessionId}));
     }
-  }
-
-  nameValidator(control: AbstractControl<string>): ValidationErrors | null {
-    const hasName = /^\S{2,}\s+\S{2,}/.test(control.value.trim())
-    return hasName ? null : { name: {} }
-  }
-
-  phoneValidator(control: AbstractControl<string>): ValidationErrors | null {
-    const isPhone = /^\+?([0-9] ?)+/.test(control.value.trim());
-    return isPhone ? null : { phone: {} }
   }
 
 }

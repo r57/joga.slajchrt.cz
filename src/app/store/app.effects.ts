@@ -1,22 +1,32 @@
-import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Injectable } from "@angular/core";
+import { Actions, createEffect, ofType } from "@ngrx/effects";
 
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFireAuth } from "@angular/fire/compat/auth";
 
-import { map, switchMap } from 'rxjs/operators';
-import * as AppActions from './app.actions';
+import { map, switchMap, tap } from "rxjs/operators";
+import * as AppActions from "./app.actions";
 
 @Injectable()
 export class AppEffects {
-
   loadAuth$ = createEffect(() => {
-    return this.actions$.pipe( 
+    return this.actions$.pipe(
       ofType(AppActions.loadAuth),
       switchMap(() => this.auth.authState),
-      map(authState => AppActions.authChange({ user: authState ? authState.email! : null }))
+      map((authState) =>
+        AppActions.authChange({
+          email: authState?.email || null,
+          phone: authState?.phoneNumber || null,
+        })
+      )
     );
   });
 
-  constructor(private actions$: Actions, private auth: AngularFireAuth) {
-  }
+  signOut$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AppActions.signOut),
+      tap(() => this.auth.signOut())
+    )
+  }, { dispatch: false });
+
+  constructor(private actions$: Actions, private auth: AngularFireAuth) {}
 }
