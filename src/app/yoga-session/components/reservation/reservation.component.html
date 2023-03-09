@@ -6,29 +6,14 @@
   <nz-spin *ngIf="data.loading" class="loader" nzSimple [nzSize]="'large'"></nz-spin>
 
   <ng-container *ngIf="data.yogaSession as yogaSession" appMatch>
-    <nz-alert  
-      *appMatchCase="yogaSession | isSessionHistory"
-      nzType="error"
-      nzMessage="Termín nelze rezervovat"
-      nzDescription="Tanto termín již proběhl"
-      nzShowIcon
-    ></nz-alert>
+    <nz-alert *appMatchCase="yogaSession | isSessionHistory" nzType="error" nzMessage="Termín nelze rezervovat"
+      nzDescription="Tanto termín již proběhl" nzShowIcon></nz-alert>
 
-    <nz-alert  
-      *appMatchCase="yogaSession | isSessionAtCapacity"
-      nzType="error"
-      nzMessage="Termín nelze rezervovat"
-      nzDescription="Tanto termín je již zaplněn"
-      nzShowIcon
-    ></nz-alert>
-    
-    <nz-alert  
-      *appMatchCase="yogaSession | isSessionLockout "
-      nzType="error"
-      nzMessage="Termín nelze rezervovat"
-      nzDescription="Tanto termín je již uzamčen pro nové rezervace"
-      nzShowIcon
-    ></nz-alert>
+    <nz-alert *appMatchCase="yogaSession | isSessionAtCapacity" nzType="error" nzMessage="Termín nelze rezervovat"
+      nzDescription="Tanto termín je již zaplněn" nzShowIcon></nz-alert>
+
+    <nz-alert *appMatchCase="yogaSession | isSessionLockout " nzType="error" nzMessage="Termín nelze rezervovat"
+      nzDescription="Tanto termín je již uzamčen pro nové rezervace" nzShowIcon></nz-alert>
 
     <ng-container *appMatchCase="yogaSession | isSessionReservable">
       <form nz-form [formGroup]="reservationForm" (ngSubmit)="onReservationFormSubmit()">
@@ -68,13 +53,17 @@
             <input formControlName="phone" nz-input name="phone" type="tel" id="phone">
           </nz-form-control>
         </nz-form-item>
-        <nz-form-item>
-          <nz-form-control [nzSpan]="10" [nzOffset]="10">
-            <label nz-checkbox formControlName="remember">Zapamatovat jméno a telefon</label>
+        <nz-form-item nz-row class="centered">
+          <nz-form-control>
+            <label nz-checkbox formControlName="remember" nz-tooltip
+              nzTooltipTitle="Údaje budou příště na tomto zařízení rovnou vyplněny. Pokud nejste na svém zařízení, raději neukládejte.">
+              Uložit údaje pro příště
+              <span nz-icon nzType="info-circle" nzTheme="outline"></span>
+            </label>
           </nz-form-control>
         </nz-form-item>
-        <nz-form-item nz-row>
-          <nz-form-control [nzSpan]="10" [nzOffset]="10">
+        <nz-form-item nz-row class="centered">
+          <nz-form-control>
             <button nz-button nzType="primary" [disabled]="!reservationForm.valid">Rezervovat</button>
             <nz-divider nzType="vertical"></nz-divider>
             <a [routerLink]="['/terminy']" nz-button>Storno</a>
