@@ -44,6 +44,7 @@ import { TemplatePageTitleStrategy } from "./title.strategy";
 import { FirestoreService } from "./firebase/firestore.service";
 import { PhoneAuthService } from "./firebase/phoneauth.service";
 import { RemoteConfigService } from "./firebase/remoteconfig.service";
+import { LocalStorageService } from "./localstorage.service";
 
 registerLocaleData(cs);
 
@@ -76,6 +77,7 @@ registerLocaleData(cs);
     RemoteConfigService,
     ScreenTrackingService,
     UserTrackingService,
+    LocalStorageService,
     { provide: NZ_I18N, useValue: cs_CZ },
     {
       provide: TitleStrategy,

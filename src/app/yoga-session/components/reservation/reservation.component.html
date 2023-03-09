@@ -68,6 +68,11 @@
             <input formControlName="phone" nz-input name="phone" type="tel" id="phone">
           </nz-form-control>
         </nz-form-item>
+        <nz-form-item>
+          <nz-form-control [nzSpan]="10" [nzOffset]="10">
+            <label nz-checkbox formControlName="remember">Zapamatovat jméno a telefon</label>
+          </nz-form-control>
+        </nz-form-item>
         <nz-form-item nz-row>
           <nz-form-control [nzSpan]="10" [nzOffset]="10">
             <button nz-button nzType="primary" [disabled]="!reservationForm.valid">Rezervovat</button>

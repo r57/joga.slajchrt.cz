@@ -9,6 +9,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { NzAlertModule } from "ng-zorro-antd/alert";
 import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 import { NzButtonModule } from "ng-zorro-antd/button";
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDatePickerModule } from "ng-zorro-antd/date-picker";
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzDescriptionsModule } from "ng-zorro-antd/descriptions";
@@ -69,6 +70,7 @@ import { OwnReservationsComponent } from './components/own-reservations/own-rese
     NzAlertModule,
     NzAutocompleteModule,
     NzButtonModule,
+    NzCheckboxModule,
     NzDatePickerModule,
     NzDividerModule,
     NzDescriptionsModule,

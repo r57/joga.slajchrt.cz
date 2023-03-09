@@ -10,7 +10,7 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from "@angular/core";
-import { Subject, Subscription } from "rxjs";
+import { Subject } from "rxjs";
 import { debounceTime, takeUntil } from "rxjs/operators";
 
 @Directive({
