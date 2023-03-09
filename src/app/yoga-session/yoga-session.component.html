@@ -44,8 +44,7 @@
     <ul nz-list-item-actions>
       <nz-list-item-action *ngIf="yogaSession | isSessionReservable">
         <button nz-button nzType="primary" [routerLink]="[yogaSession.id, 'rezervace']">
-          <span nz-icon nzType="plus"></span>
-          Rezervace
+          Rezervovat
         </button>
       </nz-list-item-action>
 
@@ -63,8 +62,8 @@
 <nz-divider></nz-divider>
 
 <p class="own-reservations">
-  <a nz-button nzType="primary" routerLink="/moje-rezervace">
+  <a nz-button nzType="primary" routerLink="/me-rezervace">
     <span nz-icon nzType="carry-out" nzTheme="outline"></span>
-    Moje rezervace
+    Mé rezervace
   </a>
 </p>

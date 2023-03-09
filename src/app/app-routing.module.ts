@@ -17,7 +17,7 @@ const routes: Routes = [
   {
     path: "terminy/:id/rezervace/rezervovano",
     component: ReservationSuccessComponent,
-    title: "Termíny",
+    title: "Rezervace",
   },
   {
     path: "terminy/:id/rezervace",
@@ -27,7 +27,7 @@ const routes: Routes = [
   {
     path: "terminy/novy",
     component: SessionCreateComponent,
-    title: "Termíny",
+    title: "Nový termín",
   },
   {
     path: "terminy",
@@ -35,9 +35,9 @@ const routes: Routes = [
     title: "Termíny",
   },
   {
-    path: "moje-rezervace",
+    path: "me-rezervace",
     component: OwnReservationsComponent,
-    title: "Moje rezervace",
+    title: "Mé rezervace",
   },
   {
     path: "**",

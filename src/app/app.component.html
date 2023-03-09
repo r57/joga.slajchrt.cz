@@ -1,7 +1,8 @@
 <div class="inner-content" *ngIf="!(loading$ | async) else loading">
   <h1 class="title">
-    <span class="sub">{{ title$ | async }}</span>
     <a routerLink="/">Jóga Píšť</a>
+    <span class="emoji">🧘🏼‍♀️</span>
+    <span class="sub">{{ title$ | async }}</span>
   </h1>
   <router-outlet></router-outlet>
   <button *ngIf="loggedIn$ | async; else loggedOut" (click)="onLogout()" class="logout" nz-button nzType="text" nzShape="circle">

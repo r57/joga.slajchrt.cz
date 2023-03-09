@@ -2,14 +2,21 @@
   color: #006cb5;
   text-align: center;
   font-size: 1.7em;
+  font-weight: 200;
   line-height: 24px;
   margin-bottom: 48px;
+  .emoji {
+    font-size: 1.5em;
+    display: inline-block;
+    vertical-align: center;
+    margin: 0 5px;
+  }
   .sub {
     color: #666;
     display: inline-block;
-    padding-right: 10px;
-    margin-right: 10px;
-    border-right: #666 1px solid;
+    // padding-right: 10px;
+    // margin-right: 10px;
+    // border-right: #666 1px solid;
   }
 }
 
