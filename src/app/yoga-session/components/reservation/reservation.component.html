@@ -33,43 +33,43 @@
     <ng-container *appMatchCase="yogaSession | isSessionReservable">
       <form nz-form [formGroup]="reservationForm" (ngSubmit)="onReservationFormSubmit()">
         <nz-form-item>
-          <nz-form-label [nzSpan]="6">Termín</nz-form-label>
-          <nz-form-control [nzSpan]="14">
+          <nz-form-label [nzSpan]="10">Termín</nz-form-label>
+          <nz-form-control [nzSpan]="10">
             <span nz-icon nzType="calendar" nzTheme="outline"></span>
             {{ yogaSession.date | luxonDateMedium }}
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-          <nz-form-label [nzSpan]="6">Místo</nz-form-label>
-          <nz-form-control [nzSpan]="14">
+          <nz-form-label [nzSpan]="10">Místo</nz-form-label>
+          <nz-form-control [nzSpan]="10">
             <span nz-icon nzType="environment" nzTheme="outline"></span>
             {{ yogaSession.place }}
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-          <nz-form-label [nzSpan]="6">Obsazenost</nz-form-label>
-          <nz-form-control [nzSpan]="14">
+          <nz-form-label [nzSpan]="10">Obsazenost</nz-form-label>
+          <nz-form-control [nzSpan]="10">
             <span nz-icon nzType="usergroup-add" nzTheme="outline"></span>
             {{ yogaSession.capacity - yogaSession.attendees }} volných z
             {{ yogaSession.capacity }} celkem
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-          <nz-form-label [nzSpan]="6" nzFor="name" nzRequired>Váše jméno a příjmení</nz-form-label>
-          <nz-form-control [nzSpan]="14" nzErrorTip="Zadejte jméno i příjmení">
+          <nz-form-label [nzSpan]="10" nzFor="name" nzRequired>Váše jméno a příjmení</nz-form-label>
+          <nz-form-control [nzSpan]="10" nzErrorTip="Zadejte jméno i příjmení">
             <input formControlName="name" nz-input name="name" id="name">
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-          <nz-form-label [nzSpan]="6" nzFor="phone" nzRequired>
+          <nz-form-label [nzSpan]="10" nzFor="phone" nzRequired>
             Váš telefon
           </nz-form-label>
-          <nz-form-control [nzSpan]="14" nzErrorTip="Zadejte telefonní číslo">
+          <nz-form-control [nzSpan]="10" nzErrorTip="Zadejte telefonní číslo">
             <input formControlName="phone" nz-input name="phone" type="tel" id="phone">
           </nz-form-control>
         </nz-form-item>
         <nz-form-item nz-row>
-          <nz-form-control [nzSpan]="14" [nzOffset]="6">
+          <nz-form-control [nzSpan]="10" [nzOffset]="10">
             <button nz-button nzType="primary" [disabled]="!reservationForm.valid">Rezervovat</button>
             <nz-divider nzType="vertical"></nz-divider>
             <a [routerLink]="['/terminy']" nz-button>Storno</a>

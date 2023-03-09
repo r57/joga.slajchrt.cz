@@ -9,12 +9,12 @@
       <p class="back-button">
         <button nz-button routerLink="/terminy">
           <span nz-icon nzType="double-left" nzTheme="outline"></span>
-          Zpět na termíny
+          Zpět
         </button>
         <nz-divider nzType="vertical"></nz-divider>
-        <button nz-button nzType="link" (click)="onDifferentNumberClick()">
+        <a (click)="onDifferentNumberClick()">
           Zkusit jiné číslo?
-        </button>
+        </a>
       </p>
     </div>
   </nz-result>
@@ -59,7 +59,7 @@
             <ng-container *appMatchCase="true">
               <button nz-button nzType="primary" nzDanger (click)="onAttendeeRemove(reservation)">
                 <span nz-icon nzType="close-circle" nzTheme="outline"></span>
-                Zrušit rezervaci
+                Zrušit
               </button>
             </ng-container>
           </nz-list-item-action>
@@ -69,7 +69,7 @@
     <p class="back-button">
       <button nz-button routerLink="/terminy">
         <span nz-icon nzType="double-left" nzTheme="outline"></span>
-        Zpět na termíny
+        Zpět
       </button>
     </p>
   </ng-container>
