@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "rsync -r -a -v -e ssh --delete dist/joga.slajchrt.cz/* ocean:/var/www/joga.slajchrt.cz"
   },
   "private": true,
   "dependencies": {
