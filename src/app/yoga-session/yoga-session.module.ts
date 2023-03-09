@@ -7,6 +7,7 @@ import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 
 import { NzAlertModule } from "ng-zorro-antd/alert";
+import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzDatePickerModule } from "ng-zorro-antd/date-picker";
 import { NzDividerModule } from 'ng-zorro-antd/divider';
@@ -66,6 +67,7 @@ import { OwnReservationsComponent } from './components/own-reservations/own-rese
     ),
     EffectsModule.forFeature([YogaSessionEffects]),
     NzAlertModule,
+    NzAutocompleteModule,
     NzButtonModule,
     NzDatePickerModule,
     NzDividerModule,

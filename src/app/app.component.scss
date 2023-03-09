@@ -30,3 +30,9 @@
 .logout {
   color: #f00;
 }
+
+.spinner {
+  position: absolute;
+  top: calc(50% - 16px);
+  left: calc(50% - 16px);
+}

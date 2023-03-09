@@ -9,6 +9,10 @@ import { registerLocaleData } from "@angular/common";
 
 import { AngularFireModule } from "@angular/fire/compat";
 import {
+  AngularFireRemoteConfigModule,
+  SETTINGS as AngularFireRemoteConfigSettings,
+} from "@angular/fire/compat/remote-config";
+import {
   ScreenTrackingService,
   UserTrackingService,
 } from "@angular/fire/analytics";
@@ -19,10 +23,12 @@ import { EffectsModule } from "@ngrx/effects";
 
 import { NZ_I18N } from "ng-zorro-antd/i18n";
 import { cs_CZ } from "ng-zorro-antd/i18n";
+
+import { NzButtonModule } from "ng-zorro-antd/button";
+import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzLayoutModule } from "ng-zorro-antd/layout";
 import { NzMenuModule } from "ng-zorro-antd/menu";
-import { NzIconModule } from "ng-zorro-antd/icon";
-import { NzButtonModule } from "ng-zorro-antd/button";
+import { NzSpinModule } from "ng-zorro-antd/spin";
 
 import { environment } from "../environments/environment";
 
@@ -37,6 +43,7 @@ import { YogaSessionModule } from "./yoga-session/yoga-session.module";
 import { TemplatePageTitleStrategy } from "./title.strategy";
 import { FirestoreService } from "./firebase/firestore.service";
 import { PhoneAuthService } from "./firebase/phoneauth.service";
+import { RemoteConfigService } from "./firebase/remoteconfig.service";
 
 registerLocaleData(cs);
 
@@ -46,6 +53,7 @@ registerLocaleData(cs);
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireRemoteConfigModule,
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([]),
@@ -54,22 +62,29 @@ registerLocaleData(cs);
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NzButtonModule,
+    NzIconModule,
     NzLayoutModule,
     NzMenuModule,
-    NzIconModule,
-    NzButtonModule,
+    NzSpinModule,
     YogaSessionModule,
     SharedModule,
   ],
   providers: [
     FirestoreService,
     PhoneAuthService,
+    RemoteConfigService,
     ScreenTrackingService,
     UserTrackingService,
     { provide: NZ_I18N, useValue: cs_CZ },
     {
       provide: TitleStrategy,
       useClass: TemplatePageTitleStrategy,
+    },
+    {
+      provide: AngularFireRemoteConfigSettings,
+      useFactory: () =>
+        isDevMode() ? { minimumFetchIntervalMillis: 10000 } : {},
     },
   ],
   bootstrap: [AppComponent],

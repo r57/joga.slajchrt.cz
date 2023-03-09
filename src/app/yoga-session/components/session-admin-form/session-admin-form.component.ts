@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { DateTime } from "luxon";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
+import { RemoteConfigService } from "src/app/firebase/remoteconfig.service";
 
 export interface YogaSessionFormValue {
   capacity: number;
@@ -35,7 +38,13 @@ export class SessionAdminFormComponent {
     });
   }
 
-  constructor(private fb: FormBuilder) {}
+  sessionPlaceSuggestions: Observable<string[]>;
+
+  constructor(private fb: FormBuilder, configService: RemoteConfigService) {
+    this.sessionPlaceSuggestions = configService.config$.pipe(
+      map(config => config.sessionPlaces)
+    );
+  }
 
   onSessionFormSubmit() {
     const { capacity, date, lockHoursBefore, place } = this.sessionForm.value;

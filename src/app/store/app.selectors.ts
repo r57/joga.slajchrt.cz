@@ -9,4 +9,4 @@ export const selectAdmin = createSelector(selectAppState, state => state.admin);
 
 export const selectAttendeePhone = createSelector(selectAppState, state => state.attendeePhone);
 
-export const selectLoading = createSelector(selectAppState, state => state.loading);
+export const selectLoading = createSelector(selectAppState, state => state.authLoading || state.configLoading);

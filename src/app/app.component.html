@@ -1,15 +1,18 @@
-<div class="inner-content">
+<div class="inner-content" *ngIf="!(loading$ | async) else loading">
   <h1 class="title">
     <span class="sub">{{ title$ | async }}</span>
     <a routerLink="/">Jóga Píšť</a>
   </h1>
   <router-outlet></router-outlet>
-</div>
-<button *ngIf="$loggedIn | async; else loggedOut" (click)="onLogout()" class="logout" nz-button nzType="text" nzShape="circle">
-  <span nz-icon nzType="unlock"></span>
-</button>
-<ng-template #loggedOut>
-  <button (click)="onLogin()" class="login" nz-button nzType="text" nzShape="circle">
-    <span nz-icon nzType="lock"></span>
+  <button *ngIf="loggedIn$ | async; else loggedOut" (click)="onLogout()" class="logout" nz-button nzType="text" nzShape="circle">
+    <span nz-icon nzType="unlock"></span>
   </button>
+  <ng-template #loggedOut>
+    <button (click)="onLogin()" class="login" nz-button nzType="text" nzShape="circle">
+      <span nz-icon nzType="lock"></span>
+    </button>
+  </ng-template>
+</div>
+<ng-template #loading>
+  <nz-spin class="spinner" nzSimple nzSize="large"></nz-spin>
 </ng-template>

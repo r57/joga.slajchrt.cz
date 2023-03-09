@@ -18,8 +18,9 @@ import * as AppSelectors from "./store/app.selectors";
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
-  $loggedIn: Observable<boolean>;
+  loggedIn$: Observable<boolean>;
   title$: Observable<string>;
+  loading$: Observable<boolean>;
 
   constructor(
     private store: Store,
@@ -27,10 +28,13 @@ export class AppComponent {
     router: Router,
     route: ActivatedRoute,
   ) {
-    this.$loggedIn = store.select(AppSelectors.selectAdmin);
+    this.loggedIn$ = store.select(AppSelectors.selectAdmin);
 
     store.dispatch(YogaSessionActions.loadYogaSessions());
     store.dispatch(AppActions.loadAuth());
+    store.dispatch(AppActions.loadConfig());
+
+    this.loading$ = this.store.select(AppSelectors.selectLoading);
 
     this.title$ = router.events.pipe(
       switchMap(() => route.firstChild ? route.firstChild.title : NEVER),

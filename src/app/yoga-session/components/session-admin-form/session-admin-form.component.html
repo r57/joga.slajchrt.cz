@@ -9,7 +9,12 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="6">Místo</nz-form-label>
     <nz-form-control [nzSpan]="14">
-        <input nz-input formControlName="place" />
+        <input nz-input formControlName="place" [nzAutocomplete]="placesAutocomplete" />
+        <nz-autocomplete #placesAutocomplete>
+          <nz-auto-option *ngFor="let placeSuggestion of sessionPlaceSuggestions | async" [nzValue]="placeSuggestion">
+            {{ placeSuggestion }}
+          </nz-auto-option>
+        </nz-autocomplete>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>

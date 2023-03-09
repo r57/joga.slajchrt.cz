@@ -4,6 +4,7 @@ import { DateTime } from "luxon";
 
 import { YogaSessionFormValue } from "../session-admin-form/session-admin-form.component";
 import * as YogaSessionActions from "../../store/yoga-session.actions";
+import { RemoteConfigService } from "src/app/firebase/remoteconfig.service";
 
 @Component({
   selector: "app-session-create",
@@ -11,14 +12,19 @@ import * as YogaSessionActions from "../../store/yoga-session.actions";
   styleUrls: ["./session-create.component.scss"],
 })
 export class SessionCreateComponent {
-  yogaSession: YogaSessionFormValue = {
-    capacity: 16,
-    date: DateTime.now().set({ hour: 18 }).startOf("hour"),
-    lockHoursBefore: 24,
-    place: "Tělocvična ZŠ Píšť",
-  };
 
-  constructor(private store: Store) {}
+  yogaSession: YogaSessionFormValue;
+
+  constructor(private store: Store, configService: RemoteConfigService) {
+    const config = configService.configSnapshot;
+
+    this.yogaSession = {
+      capacity: config.defaultSessionCapacity,
+      date: DateTime.now().set({ hour: 18 }).startOf("hour"),
+      lockHoursBefore: config.defaultSessionLockTime,
+      place: config.sessionPlaces[0] ? config.sessionPlaces[0] : "",
+    };
+  }
 
   onSessionFormSubmit(value: YogaSessionFormValue) {
     const { capacity, date, lockHoursBefore, place } = value;
