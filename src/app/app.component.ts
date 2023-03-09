@@ -6,7 +6,7 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 import firebase from "firebase/compat/app";
 
 import { NEVER, Observable } from "rxjs";
-import { map, switchMap, tap } from "rxjs/operators";
+import { map, startWith, switchMap, tap } from "rxjs/operators";
 
 import * as YogaSessionActions from "./yoga-session/store/yoga-session.actions";
 import * as AppActions from "./store/app.actions";
@@ -37,6 +37,7 @@ export class AppComponent {
     this.loading$ = this.store.select(AppSelectors.selectLoading);
 
     this.title$ = router.events.pipe(
+      startWith(null), // force first title update
       switchMap(() => route.firstChild ? route.firstChild.title : NEVER),
       map(maybeTitle => maybeTitle ? maybeTitle : ""),
     );
