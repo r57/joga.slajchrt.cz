@@ -7,12 +7,14 @@ import { BehaviorSubject, Observable } from "rxjs";
 const configDefaults: Config = {
   defaultSessionLockTime: 24,
   defaultSessionCapacity: 16,
+  sendCodeCoolDown: 5,
   sessionPlaces: [],
 };
 
 export interface Config {
   defaultSessionLockTime: number;
   defaultSessionCapacity: number;
+  sendCodeCoolDown: number;
   sessionPlaces: string[];
 }
 
@@ -57,6 +59,8 @@ export class RemoteConfigService {
           return addToConfig(key, (c) => c.asNumber());
         case "sessionPlaces":
           return addToConfig(key, (c) => c.asString().split("\n"));
+        case "sendCodeCoolDown":
+          return addToConfig(key, (c) => c.asNumber());
         default:
           return config;
       }

@@ -13,7 +13,8 @@
             <input formControlName="phone" nz-input name="phone" type="tel" id="phone">
           </nz-input-group>
           <ng-template #suffixSendCode>
-            <button nz-button nzType="primary" nzSearch (click)="onSendCode()" [nzLoading]="sendCodeLoading$ | async">Zaslat kód</button>
+            <button nz-button nzType="primary" nzSearch (click)="onSendCode()"
+              [nzLoading]="sendCodeCoolDown$ | async">Zaslat kód</button>
           </ng-template>
         </nz-form-control>
       </nz-form-item>
@@ -27,7 +28,8 @@
       </nz-form-item>
       <nz-form-item nz-row>
         <nz-form-control>
-          <button nz-button nzType="primary" [disabled]="!phoneAuthForm.valid || !awaitingConfirmation()">Zobrazit rezervace</button>
+          <button nz-button nzType="primary" [disabled]="!phoneAuthForm.valid || !awaitingConfirmation()">Zobrazit
+            rezervace</button>
           <nz-divider nzType="vertical"></nz-divider>
           <a routerLink="/" nz-button>Storno</a>
         </nz-form-control>
