@@ -1,4 +1,4 @@
-import { NgModule, isDevMode } from "@angular/core";
+import { NgModule, isDevMode, ErrorHandler, Provider } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { TitleStrategy } from "@angular/router";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -16,6 +16,8 @@ import {
   ScreenTrackingService,
   UserTrackingService,
 } from "@angular/fire/analytics";
+
+import * as Sentry from "@sentry/angular-ivy";
 
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
@@ -88,6 +90,17 @@ registerLocaleData(cs);
       useFactory: () =>
         isDevMode() ? { minimumFetchIntervalMillis: 10000 } : {},
     },
+    ...(environment.sentry.enabled
+      ? [
+          {
+            provide: ErrorHandler,
+            useValue: Sentry.createErrorHandler({
+              showDialog: false,
+              logErrors: true,
+            }),
+          },
+        ]
+      : []),
   ],
   bootstrap: [AppComponent],
 })

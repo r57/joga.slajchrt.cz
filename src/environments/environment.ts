@@ -1,12 +1,17 @@
 export const environment = {
   firebase: {
-    projectId: 'joga-53454',
-    appId: '1:1091946932429:web:7615ac954065f0d51ea184',
-    storageBucket: 'joga-53454.appspot.com',
-    apiKey: 'AIzaSyD4jNA7NO5QtsIe5dxbz1ugyet98_uUVj8',
-    authDomain: 'joga-53454.firebaseapp.com',
-    messagingSenderId: '1091946932429',
-    measurementId: 'G-50M18C7QDZ',
+    projectId: "joga-dev",
+    appId: "1:914656753116:web:5ab2bb6af0700fbb704b19",
+    storageBucket: "joga-dev.appspot.com",
+    apiKey: "AIzaSyBrUYNqOfW32Y3AQ82tL7hUKMVFmcdXNB4",
+    authDomain: "joga-dev.firebaseapp.com",
+    messagingSenderId: "914656753116",
+    measurementId: "G-XD36G5LHTE",
   },
-  production: false
+  sentry: {
+    enabled: false,
+    dsn: "",
+    sampleRate: 1.0,
+  },
+  production: false,
 };
