@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "prebuild": "echo \"export const commitSHA = \\\"$(git rev-parse HEAD)\\\";\" > .commit.ts",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
