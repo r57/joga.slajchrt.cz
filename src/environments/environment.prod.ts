@@ -10,7 +10,7 @@ export const environment = {
   },
   sentry: {
     enabled: true,
-    dsn: "https://5ffec26f8b5d4881b6ad1e487c42fec7@o4504842567548928.ingest.sentry.io/4504842569121792",
+    dsn: "https://c0bfb596cab64d6e8f50f70a7598927f@o4504842567548928.ingest.sentry.io/4504848738615296",
     sampleRate: 1.0,
   },
   production: true,
