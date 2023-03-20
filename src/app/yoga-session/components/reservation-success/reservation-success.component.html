@@ -11,6 +11,10 @@
         <span nz-icon nzType="calendar" nzTheme="outline"></span>
         {{ yogaSession.date | luxonDateMedium }}
       </p>
+      <p *ngIf="yogaSession.note">
+        <span nz-icon nzType="message" nzTheme="outline"></span>
+        {{ yogaSession.note }}
+      </p>
       <p>
         <span nz-icon nzType="environment" nzTheme="outline"></span>
         {{ yogaSession.place }}

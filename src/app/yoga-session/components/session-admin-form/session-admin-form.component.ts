@@ -9,6 +9,7 @@ export interface YogaSessionFormValue {
   capacity: number;
   date: DateTime;
   place: string;
+  note: string | null;
   lockHoursBefore: number;
 }
 
@@ -23,18 +24,20 @@ export class SessionAdminFormComponent {
     date: [new Date(), [Validators.required]],
     lockHoursBefore: [24, [Validators.required]],
     place: ["", [Validators.required]],
+    note: [""],
   });
 
   @Output() saveSession = new EventEmitter<YogaSessionFormValue>();
 
   @Input()
   set session(value: YogaSessionFormValue) {
-    const {capacity, date, lockHoursBefore, place} = value;
+    const { capacity, date, lockHoursBefore, place, note } = value;
     this.sessionForm.setValue({
       capacity,
       date: date.toJSDate(),
       lockHoursBefore,
       place,
+      note: note === undefined ? "" : note,
     });
   }
 
@@ -42,12 +45,13 @@ export class SessionAdminFormComponent {
 
   constructor(private fb: FormBuilder, configService: RemoteConfigService) {
     this.sessionPlaceSuggestions = configService.config$.pipe(
-      map(config => config.sessionPlaces)
+      map((config) => config.sessionPlaces)
     );
   }
 
   onSessionFormSubmit() {
-    const { capacity, date, lockHoursBefore, place } = this.sessionForm.value;
+    const { capacity, date, lockHoursBefore, place, note } =
+      this.sessionForm.value;
     if (
       this.sessionForm.valid &&
       capacity &&
@@ -60,7 +64,19 @@ export class SessionAdminFormComponent {
         date: DateTime.fromJSDate(date),
         lockHoursBefore,
         place,
+        note: this.sanitiseNoteFormValue(note),
       });
+    }
+  }
+
+  private sanitiseNoteFormValue(
+    note: string | null | undefined
+  ): string | null {
+    if (note === null || note === undefined) {
+      return null;
+    } else {
+      const trimmedNote = note.trim();
+      return trimmedNote === "" ? null : trimmedNote;
     }
   }
 }

@@ -22,6 +22,7 @@ interface FirestoreYogaSession {
   date: Timestamp;
   lockHoursBefore: number;
   place: string;
+  note: string | null;
 }
 
 interface FirestoreYogaSessionAttendee {
@@ -96,7 +97,8 @@ export class FirestoreService {
     capacity: number,
     date: DateTime,
     lockHoursBefore: number,
-    place: string
+    place: string,
+    note: string | null,
   ): Promise<void> {
     const sessionPath = `${YogaSessionCollection}/${this.angularFirestore.createId()}`;
     const sessionRef = this.angularFirestore.firestore.doc(sessionPath);
@@ -106,6 +108,7 @@ export class FirestoreService {
       date: Timestamp.fromDate(date.toJSDate()),
       lockHoursBefore,
       place,
+      note
     };
 
     return sessionRef.set(sessionData);
@@ -126,6 +129,7 @@ export class FirestoreService {
             date: DateTime.fromJSDate(firestoreSession.date.toDate()),
             place: firestoreSession.place,
             lockHoursBefore: firestoreSession.lockHoursBefore,
+            note: firestoreSession.note
           }));
         })
       );
@@ -170,7 +174,8 @@ export class FirestoreService {
     capacity: number,
     date: DateTime,
     lockHoursBefore: number,
-    place: string
+    place: string,
+    note: string | null,
   ): Promise<void> {
     return this.runSessionTransaction(
       sessionId,
@@ -180,6 +185,7 @@ export class FirestoreService {
           date: Timestamp.fromDate(date.toJSDate()),
           place,
           lockHoursBefore,
+          note
         });
       }
     );

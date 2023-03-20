@@ -67,6 +67,7 @@ export const {
       lockHoursBefore: number;
       place: string;
       sessionId: string;
+      note: string | null;
     }>(),
     "Update yoga session success": emptyProps,
     "Update yoga session failure": props<{ message: string }>(),
@@ -101,6 +102,7 @@ export const {
       date: DateTime;
       lockHoursBefore: number;
       place: string;
+      note: string | null;
     }>(),
     "Create yoga session success": emptyProps,
     "Create yoga session failure": props<{ message: string }>(),

@@ -36,6 +36,10 @@
             <span nz-icon nzType="user" nzTheme="outline"></span>
             {{ reservation.attendee.name }}
           </nz-list-item-meta-description>
+          <nz-list-item-meta-description *ngIf="reservation.session.note">
+            <span nz-icon nzType="message" nzTheme="outline"></span>
+            {{ reservation.session.note }}
+          </nz-list-item-meta-description>
           <nz-list-item-meta-description>
             <span nz-icon nzType="environment" nzTheme="outline"></span>
             {{ reservation.session.place }}

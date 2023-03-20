@@ -12,7 +12,6 @@ import { RemoteConfigService } from "src/app/firebase/remoteconfig.service";
   styleUrls: ["./session-create.component.scss"],
 })
 export class SessionCreateComponent {
-
   yogaSession: YogaSessionFormValue;
 
   constructor(private store: Store, configService: RemoteConfigService) {
@@ -23,17 +22,19 @@ export class SessionCreateComponent {
       date: DateTime.now().set({ hour: 18 }).startOf("hour"),
       lockHoursBefore: config.defaultSessionLockTime,
       place: config.sessionPlaces[0] ? config.sessionPlaces[0] : "",
+      note: null
     };
   }
 
   onSessionFormSubmit(value: YogaSessionFormValue) {
-    const { capacity, date, lockHoursBefore, place } = value;
+    const { capacity, date, lockHoursBefore, place, note } = value;
     this.store.dispatch(
       YogaSessionActions.createYogaSession({
         capacity,
         date,
         lockHoursBefore,
         place,
+        note,
       })
     );
   }

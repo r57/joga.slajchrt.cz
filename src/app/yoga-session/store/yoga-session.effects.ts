@@ -110,13 +110,14 @@ export class YogaSessionEffects {
     return this.actions$.pipe(
       ofType(YogaSessionActions.updateYogaSession),
       switchMap(
-        async ({ sessionId, capacity, date, lockHoursBefore, place }) => {
+        async ({ sessionId, capacity, date, lockHoursBefore, place, note }) => {
           await this.firestoreService.updateYogaSession(
             sessionId,
             capacity,
             date,
             lockHoursBefore,
-            place
+            place,
+            note,
           );
           return YogaSessionActions.updateYogaSessionSuccess();
         }
@@ -176,12 +177,13 @@ export class YogaSessionEffects {
   createYogaSession$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(YogaSessionActions.createYogaSession),
-      concatMap(async ({ capacity, date, lockHoursBefore, place }) => {
+      concatMap(async ({ capacity, date, lockHoursBefore, place, note }) => {
         await this.firestoreService.createYogaSession(
           capacity,
           date,
           lockHoursBefore,
-          place
+          place,
+          note,
         );
         return YogaSessionActions.createYogaSessionSuccess();
       }),

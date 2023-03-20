@@ -11,8 +11,15 @@
       <nz-list-item-meta-title>
         <span nz-icon nzType="calendar" nzTheme="outline"></span>
         {{ yogaSession.date | luxonDateMedium }}<br />
+        <ng-container *ngIf="yogaSession.note">
+          <span nz-icon nzType="message" nzTheme="outline"></span>
+          <span class="yoga-session-detail">
+            {{ yogaSession.note }}
+          </span>
+          <br />
+        </ng-container>
         <span nz-icon nzType="environment" nzTheme="outline"></span>
-        <span class="yoga-session-place">
+        <span class="yoga-session-detail">
           {{ yogaSession.place }}
         </span>
       </nz-list-item-meta-title>

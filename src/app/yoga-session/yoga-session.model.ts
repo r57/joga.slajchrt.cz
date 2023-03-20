@@ -7,6 +7,7 @@ export interface YogaSession {
   date: DateTime;
   place: string;
   lockHoursBefore: number;
+  note: string | null;
 }
 
 export interface YogaSessionAttendee {

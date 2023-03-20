@@ -49,7 +49,7 @@ export class SessionAdminComponent {
   }
 
   onSessionFormSubmit(formValue: YogaSessionFormValue) {
-    const { capacity, date, lockHoursBefore, place } = formValue;
+    const { capacity, date, lockHoursBefore, place, note } = formValue;
     const sessionId = this.route.snapshot.paramMap.get("id")!;
     this.store.dispatch(
       YogaSessionActions.updateYogaSession({
@@ -58,6 +58,7 @@ export class SessionAdminComponent {
         date,
         lockHoursBefore,
         place,
+        note
       })
     );
   }

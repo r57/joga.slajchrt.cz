@@ -24,6 +24,13 @@
             {{ yogaSession.date | luxonDateMedium }}
           </nz-form-control>
         </nz-form-item>
+        <nz-form-item *ngIf="yogaSession.note">
+          <nz-form-label [nzSpan]="10">Poznámka</nz-form-label>
+          <nz-form-control [nzSpan]="10">
+            <span nz-icon nzType="message" nzTheme="outline"></span>
+            {{ yogaSession.note }}
+          </nz-form-control>
+        </nz-form-item>
         <nz-form-item>
           <nz-form-label [nzSpan]="10">Místo</nz-form-label>
           <nz-form-control [nzSpan]="10">
