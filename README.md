@@ -1,11 +1,13 @@
-# Joga
+# 🧘🏼‍♀️ joga.slajchrt.cz
 
-Yoga session reservation system. Heavily work-in-progress.
+Yoga session reservation system. 
 
-## The "Hey, you pushed your API key!"
+👷‍♂️ Still heavily in-progress.
 
-Yes, and ![it's fine](https://firebase.google.com/docs/projects/api-keys#api-keys-for-firebase-are-different).
+### "Hey you pushed your API keys!"
 
-## Footnote
+Yes, and [it's fine](https://firebase.google.com/docs/projects/api-keys#api-keys-for-firebase-are-different).
+
+---
 
 > This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.4.
