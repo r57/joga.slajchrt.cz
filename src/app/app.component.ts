@@ -30,7 +30,7 @@ export class AppComponent {
   ) {
     this.loggedIn$ = store.select(AppSelectors.selectAdmin);
 
-    store.dispatch(YogaSessionActions.loadYogaSessions());
+    store.dispatch(YogaSessionActions.loadYogaSessions({ showPast: false }));
     store.dispatch(AppActions.loadAuth());
     store.dispatch(AppActions.loadConfig());
 

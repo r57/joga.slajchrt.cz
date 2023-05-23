@@ -16,7 +16,7 @@ export const {
 } = createActionGroup({
   source: "LoadYogaSession",
   events: {
-    "Load yoga sessions": emptyProps(),
+    "Load yoga sessions": props<{ showPast: boolean }>(),
     "Load yoga sessions success": props<{ sessions: YogaSession[] }>(),
     "Load yoga sessions failure": props<{ message: string }>(),
   },

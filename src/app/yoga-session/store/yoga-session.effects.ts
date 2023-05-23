@@ -26,7 +26,7 @@ export class YogaSessionEffects {
   loadSessions$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(YogaSessionActions.loadYogaSessions),
-      switchMap(() => this.firestoreService.getYogaSessions()),
+      switchMap(({ showPast: includePast }) => this.firestoreService.getYogaSessions(includePast)),
       map((sessions) =>
         YogaSessionActions.loadYogaSessionsSuccess({ sessions })
       ),

@@ -114,11 +114,12 @@ export class FirestoreService {
     return sessionRef.set(sessionData);
   }
 
-  getYogaSessions(): Observable<YogaSession[]> {
+  getYogaSessions(includePast: boolean): Observable<YogaSession[]> {
     return this.angularFirestore
-      .collection<FirestoreYogaSession>(YogaSessionCollection, (ref) =>
-        ref.orderBy("date", "asc")
-      )
+      .collection<FirestoreYogaSession>(YogaSessionCollection, (ref) => {
+        const pastResolvedRef = includePast ? ref : ref.where("date", ">", DateTime.now().startOf('day').toJSDate());
+        return pastResolvedRef.orderBy("date", "asc")
+      })
       .valueChanges({ idField: "id" })
       .pipe(
         map((firestoreSessions) => {

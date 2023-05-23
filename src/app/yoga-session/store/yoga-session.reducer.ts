@@ -8,6 +8,7 @@ export const eventFeatureKey = "event";
 export interface State {
   sessions: YogaSession[];
   sessionsLoading: boolean;
+  showPastSessions: boolean;
   attendees: YogaSessionAttendee[];
   attendeesLoading: boolean;
 }
@@ -15,6 +16,7 @@ export interface State {
 export const initialState: State = {
   sessions: [],
   sessionsLoading: false,
+  showPastSessions: false,
   attendees: [],
   attendeesLoading: false,
 };
@@ -22,8 +24,9 @@ export const initialState: State = {
 export const reducer = createReducer(
   initialState,
 
-  on(YogaSessionActions.loadYogaSessions, (state) => ({
+  on(YogaSessionActions.loadYogaSessions, (state, action) => ({
     ...state,
+    showPastSessions: action.showPast,
     sessionsLoading: true,
   })),
 

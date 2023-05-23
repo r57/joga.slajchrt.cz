@@ -10,3 +10,14 @@
 .own-reservations {
   text-align: center;
 }
+
+.show-past {
+  text-align: right;
+  margin: 15px 0 0;
+  label {
+    font-size: .9em;
+  }
+  .ant-checkbox {
+    top: .3em;
+  }
+}

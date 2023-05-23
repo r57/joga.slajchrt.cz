@@ -13,6 +13,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDatePickerModule } from "ng-zorro-antd/date-picker";
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzDescriptionsModule } from "ng-zorro-antd/descriptions";
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzFormModule } from "ng-zorro-antd/form";
 import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -74,6 +75,7 @@ import { OwnReservationsComponent } from './components/own-reservations/own-rese
     NzDatePickerModule,
     NzDividerModule,
     NzDescriptionsModule,
+    NzEmptyModule,
     NzFormModule,
     NzIconModule,
     NzInputModule,

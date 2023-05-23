@@ -6,6 +6,7 @@
 </p>
 
 <nz-list class="yoga-sessions" [nzLoading]="$yogaSessionsLoading | async" [nzBordered]="true">
+  <nz-empty *ngIf="$yogaSessionsEmpty | async" nzNotFoundImage="simple" nzNotFoundContent="Nejsou tu žádné termíny. Zkuste to, prosím, jindy."></nz-empty>
   <nz-list-item *ngFor="let yogaSession of $yogaSessions | async">
     <nz-list-item-meta appMatch>
       <nz-list-item-meta-title>
@@ -65,6 +66,12 @@
 
   </nz-list-item>
 </nz-list>
+
+<p class="show-past">
+  <label nz-checkbox [nzChecked]="$yogaSessionsShowPast | async" (nzCheckedChange)="onShowPastClicked($event)">
+    zobrazit i minulé termíny
+  </label> 
+</p>
 
 <nz-divider></nz-divider>
 
